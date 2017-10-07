@@ -47,13 +47,25 @@ public class Mesa {
     public void setServicio(Servicio servicio) {
         this.servicio = servicio;
     }       
-    public void agregarItemAlServicio(Item item){
-        servicio.agregarItem(item);
-    }
     public void removerItemAlServicio(Item item){
         servicio.removerItem(item);
     }
     // </editor-fold>
+    
+    
+    public void agregarItemAlServicio(Item item) {
+        Producto producto = item.getProducto();
+        int cantidad = item.getCantidad();
+        
+        if(estaAbierta() && producto != null && cantidad > 0){
+            if(producto.hayStock(cantidad)){
+                Pedido pedido = new Pedido();
+                pedido.agregarItem(item);
+                this.getMozo().avisar(Mozo.eventos.pedidos);                
+            }
+        }
+    }
+    
     
     public void cerrar() {
         if(!estaAbierta()){

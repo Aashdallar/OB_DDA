@@ -41,8 +41,9 @@ public class Mozo extends Usuario {
     }
 
     // </editor-fold>
+    
     // <editor-fold defaultstate="collapsed" desc="Observable Section">  
-    private void avisar(eventos eventos) {
+    public void avisar(eventos eventos) {
         setChanged();
         notifyObservers(eventos);
     }
@@ -70,20 +71,4 @@ public class Mozo extends Usuario {
         }
         return false;
     }
-
-    public void agregarItemAlServicioDeUnaMesa(Mesa mesa, Producto producto, int cantidad, String descripcion, Pedido pedido) {
-        if(mesa.estaAbierta() && producto != null && cantidad > 0 && pedido != null){
-            if(producto.hayStock(cantidad)){
-                Item item = new Item();
-                item.setProducto(producto);
-                item.setCantidad(cantidad);
-                if(descripcion != null && descripcion.equals("")){
-                    item.setDescripcion(descripcion);
-                }
-                pedido.agregarItem(item);
-                avisar(eventos.pedidos);                
-            }
-        }
-    }
-
 }
