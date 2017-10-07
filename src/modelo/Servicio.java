@@ -15,6 +15,7 @@ public class Servicio {
    
     private ArrayList<Item> items;
     
+    // <editor-fold defaultstate="collapsed" desc="Agregar-Remover Items">    
     public ArrayList<Item> getItems(){
         return items;
     }
@@ -24,6 +25,7 @@ public class Servicio {
     public void removerItem(Item item) {
         this.items.remove(item);
     }
+    // </editor-fold>
     
     public double montoTotal(){
         double total = 0;        

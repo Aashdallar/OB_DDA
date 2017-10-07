@@ -19,13 +19,14 @@ public class Mesa {
     private Servicio servicio;   
     private Transferencia transferencia;  
     
+    // <editor-fold defaultstate="collapsed" desc="Gets y Sets y Agregar-Remover Items">    
     public int getNro(){
         return nro;
     }
     public void setNro(int nro) {
         this.nro = nro;
     }
-    public boolean isAbierta() {
+    public boolean estaAbierta() {
         return abierta;
     }
     public Mozo getMozo() {
@@ -49,13 +50,25 @@ public class Mesa {
     public void agregarItemAlServicio(Item item){
         servicio.agregarItem(item);
     }
+    public void removerItemAlServicio(Item item){
+        servicio.removerItem(item);
+    }
+    // </editor-fold>
     
     public void cerrar() {
-        if(!isAbierta()){
+        if(!estaAbierta()){
             if(!servicio.hayPendientes()){
                 this.abierta = false;
             }            
         }        
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        Mesa mesa = (Mesa)obj;
+        return nro == mesa.getNro();
+    }
+    
+    
     
 }

@@ -5,18 +5,19 @@
  */
 package modelo;
 
-import java.util.Objects;
+import java.util.Observable;
 
 /**
  *
  * @author SG0219779
  */
-public abstract class Usuario {
+public abstract class Usuario extends Observable{
     
     private String nombreUsuario;
     private String nombreCompleto;
     private String clave;
     
+    // <editor-fold defaultstate="collapsed" desc="Gets y Sets">   
     public String getNombreUsuario(){
         return nombreUsuario;
     }
@@ -35,11 +36,12 @@ public abstract class Usuario {
     public void setClave(String clave) {
         this.clave = clave;
     }
+    // </editor-fold>
 
     @Override
-    public boolean equals(Object mozo) { 
-        
-        return true;
+    public boolean equals(Object obj) { 
+        Mozo mozo = (Mozo)obj;
+        return nombreUsuario.equals(mozo.getNombreUsuario());
     }
     
     

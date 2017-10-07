@@ -17,6 +17,7 @@ public class Producto {
     private int stock;
     private UnidadProcesadora unidad;
 
+    // <editor-fold defaultstate="collapsed" desc="Gets y Sets">    
     public String getCodigo() {
         return codigo;
     }
@@ -46,6 +47,15 @@ public class Producto {
     }
     public void setUnidad(UnidadProcesadora unidad) {
         this.unidad = unidad;
+    }
+    // </editor-fold>
+    
+    public boolean hayStock(int cantidad){
+        if(stock >= cantidad){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     @Override

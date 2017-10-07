@@ -17,6 +17,7 @@ public class SistemaGestores {
     private ArrayList<Gestor> gestoresActivos;
     private ArrayList<UnidadProcesadora> unidades;
 
+    // <editor-fold defaultstate="collapsed" desc="Agregar y Remover Gestores-Unidades">    
     public ArrayList<Gestor> getGestors() {
         return gestores;
     }
@@ -48,6 +49,7 @@ public class SistemaGestores {
     public void removerUnidadProcesadora(UnidadProcesadora unidad) {
         this.unidades.remove(unidad);
     }
+    // </editor-fold>
 
     public Gestor ingresar(String nombreUsuario, String clave) {
         Gestor gestor = null;

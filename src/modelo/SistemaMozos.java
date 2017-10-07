@@ -16,6 +16,7 @@ public class SistemaMozos {
     private ArrayList<Mozo> mozos;
     private ArrayList<Mozo> mozosActivos;
 
+    // <editor-fold defaultstate="collapsed" desc="Agregar y Remover Gestores-Unidades">   
     public ArrayList<Mozo> getMozos() {
         return mozos;
     }
@@ -39,6 +40,7 @@ public class SistemaMozos {
     public void removerMozoActivo(Mozo mozo) {
         this.mozosActivos.remove(mozo);
     }
+    // </editor-fold>
 
     public Mozo ingresar(String nombreUsuario, String clave) {
         Mozo mozo = null;

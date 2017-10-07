@@ -19,6 +19,7 @@ public class Item {
     private Estado estado;
     public enum Estado {pendiente,enProceso,finalizado;}
     
+    // <editor-fold defaultstate="collapsed" desc="Gets y Sets">
     public Producto getProducto(){
         return producto;
     }    
@@ -42,25 +43,28 @@ public class Item {
     }
     public void setPrecioUnitario(double precioUnitario) {
         this.precioUnitario = precioUnitario;
-    }
-    public double getMonto(){
-        return precioUnitario*cantidad;
-    }    
+    }  
     public Estado getEstado(){
         return estado;
     }
+    public void setEstado(Estado estado) {
+        this.estado = estado;
+    } 
     public Pedido getPedido() {
         return pedido;
     }
     public void setPedido(Pedido pedido) {
         this.pedido = pedido;
     }    
+    // </editor-fold>
+    
+    public double getMonto(){
+        return precioUnitario*cantidad;
+    }  
     
     @Override
     public String toString() {
         return producto + " x" + cantidad;
     }
-    
-    
     
 }

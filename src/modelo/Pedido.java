@@ -14,16 +14,23 @@ public class Pedido {
     private Item item;
     private boolean finalizado;
     
+    // <editor-fold defaultstate="collapsed" desc="Gets y Sets">    
+    
     public Item getItem(){
         return item;
     }    
-    public void setItem(Item item){
-        this.item = item;
-    }
-    public boolean isFinalizado(){
+    public boolean estaFinalizado(){
         return finalizado;
     }
     public void setFinalizado(boolean value){
         finalizado = value;
+    }
+    
+    // </editor-fold>    
+    
+        public void agregarItem(Item item){
+        item.setPedido(this);
+        item.setEstado(Item.Estado.pendiente);
+        this.item = item;
     }
 }

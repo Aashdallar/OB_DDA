@@ -13,8 +13,8 @@ public class Transferencia {
         
     private Mesa mesa;    
     private Mozo mozo;
-    private boolean pendiente;
-       
+    
+    // <editor-fold defaultstate="collapsed" desc="Gets y Sets">      
     public Mesa getMesa(){
         return mesa;
     }   
@@ -27,16 +27,12 @@ public class Transferencia {
     public void setMozo(Mozo mozo) {
         this.mozo = mozo;
     }
-    public boolean isPendiente() {
-        return pendiente;
-    }
-    public void setPendiente(boolean pendiente) {
-        this.pendiente = pendiente;
-    }
+    // </editor-fold>   
+    
     public boolean confirmar(){
-        mesa.setMozo(mozo);
-        mozo.agregarMesa(mesa);        
-        pendiente = false;
+        mozo.agregarMesa(mesa);
+        mozo.setTransferencia(null);
+        mesa.setTransferencia(null);
         return true;
     }
     

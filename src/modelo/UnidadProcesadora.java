@@ -17,7 +17,8 @@ public class UnidadProcesadora {
     private ArrayList<Producto> productos;
     private ArrayList<Pedido> pedidosProcesados;
     private ArrayList<Pedido> pedidosPendientes;
-
+    
+    // <editor-fold defaultstate="collapsed" desc="Sets, Gets, Agregar y Remover Productos-Pedidos">   
     public String getNombre() {
         return nombre;
     }
@@ -40,16 +41,30 @@ public class UnidadProcesadora {
         this.pedidosProcesados.add(pedido);
     }
     public void removerPedidoProcesado(Pedido pedido) {
-        this.pedidosProcesados.remove(pedido);
+        if(pedido.estaFinalizado()){
+            this.pedidosProcesados.remove(pedido);
+        }
     }
     public ArrayList<Pedido> getPedidosPendientes() {
         return pedidosPendientes;
     }
     public void agregarPedidoPendiente(Pedido pedido) {
-        this.pedidosPendientes.add(pedido);
+        if(!pedido.estaFinalizado()){
+            this.pedidosPendientes.add(pedido);
+        }        
     }
     public void removerPedidoPendiente(Pedido pedido) {
         this.pedidosPendientes.remove(pedido);
-    }    
+    }   
+    // </editor-fold>
+    
+    public boolean finalizarPedido(Pedido pedido){
+        if(pedidosPendientes.contains(pedido)){
+            removerPedidoPendiente(pedido);
+            agregarPedidoProcesado(pedido);
+            return true;
+        }
+        return false;
+    }
     
 }
