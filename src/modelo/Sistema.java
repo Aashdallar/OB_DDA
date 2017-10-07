@@ -11,4 +11,13 @@ package modelo;
  */
 public class Sistema {
     
+    private SistemaMozos sisM = new SistemaMozos();
+    private SistemaGestores sisG = new SistemaGestores();    
+    private static Sistema instancia = new Sistema();
+
+    public static Sistema getInstancia() {
+        return instancia;
+    }
+    private Sistema() {}
+    
 }

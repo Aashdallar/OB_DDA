@@ -28,5 +28,8 @@ public class Gestor extends Usuario {
     public void agregarPedido(Pedido pedido) {
         this.pedidos.add(pedido);
     }
+    public void removerPedido(Pedido pedido){
+        this.pedidos.remove(pedido);
+    }
     
 }

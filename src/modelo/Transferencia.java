@@ -33,5 +33,11 @@ public class Transferencia {
     public void setPendiente(boolean pendiente) {
         this.pendiente = pendiente;
     }
+    public boolean confirmar(){
+        mesa.setMozo(mozo);
+        mozo.agregarMesa(mesa);        
+        pendiente = false;
+        return true;
+    }
     
 }

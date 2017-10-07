@@ -21,12 +21,29 @@ public class Mozo extends Usuario {
     }
     public void agregarMesa(Mesa mesa) {
         this.mesas.add(mesa);
-    }    
+    }
+    public void removerMesa(Mesa mesa){
+        this.mesas.remove(mesa);
+    }
     public Transferencia getTransferencia(){
         return transferencia;
     }
     public void setTransferencia(Transferencia transferencia) {
         this.transferencia = transferencia;
+    }
+    public boolean tieneMesasAbiertas(){
+        for(Mesa m:mesas){
+            if(m.isAbierta()){
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean aceptarTransferencia(){
+        if(transferencia != null){
+            return transferencia.confirmar();            
+        }
+        return false;
     }
     
 }

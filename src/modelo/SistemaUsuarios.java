@@ -11,4 +11,6 @@ package modelo;
  */
 public class SistemaUsuarios {
     
+    //NO PARECE NECESARIA ESTA CLASE
+    
 }

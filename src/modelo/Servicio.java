@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * @author SG0219779
  */
 public class Servicio {
-    
+   
     private ArrayList<Item> items;
     
     public ArrayList<Item> getItems(){
@@ -21,13 +21,25 @@ public class Servicio {
     public void agregarItem(Item item) {
         this.items.add(item);
     }
+    public void removerItem(Item item) {
+        this.items.remove(item);
+    }
     
     public double montoTotal(){
         double total = 0;        
         for(Item i:items){
-            total += i.getPrecioItem();
+            total += i.getMonto();
         }
         return total;
+    }
+    
+    public boolean hayPendientes() {
+        for(Item i:items){
+            if(i.getEstado().equals(Item.Estado.pendiente)){
+                return true;
+            }
+        }
+        return false;
     }
     
 }

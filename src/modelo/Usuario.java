@@ -5,6 +5,8 @@
  */
 package modelo;
 
+import java.util.Objects;
+
 /**
  *
  * @author SG0219779
@@ -33,5 +35,13 @@ public abstract class Usuario {
     public void setClave(String clave) {
         this.clave = clave;
     }
+
+    @Override
+    public boolean equals(Object mozo) { 
+        
+        return true;
+    }
+    
+    
     
 }

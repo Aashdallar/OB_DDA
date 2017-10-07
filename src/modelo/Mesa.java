@@ -12,18 +12,13 @@ import java.util.ArrayList;
  * @author SG0219779
  */
 public class Mesa {
-    
+        
     private int nro;
     private boolean abierta;
+    private Mozo mozo;
     private Servicio servicio;   
-    private Transferencia transferencia;    
+    private Transferencia transferencia;  
     
-    public Transferencia getTransferencia(){
-        return transferencia;
-    }
-    public void setTransferencia(Transferencia transferencia) {
-        this.transferencia = transferencia;
-    }
     public int getNro(){
         return nro;
     }
@@ -33,14 +28,34 @@ public class Mesa {
     public boolean isAbierta() {
         return abierta;
     }
-    public void setAbierta(boolean abierta) {
-        this.abierta = abierta;
+    public Mozo getMozo() {
+        return mozo;
     }
+    public void setMozo(Mozo mozo) {
+        this.mozo = mozo;
+    }
+    public Transferencia getTransferencia(){
+        return transferencia;
+    }
+    public void setTransferencia(Transferencia transferencia) {
+        this.transferencia = transferencia;
+    }        
     public Servicio getServicio() {
         return servicio;
     }
     public void setServicio(Servicio servicio) {
         this.servicio = servicio;
-    }        
+    }       
+    public void agregarItemAlServicio(Item item){
+        servicio.agregarItem(item);
+    }
+    
+    public void cerrar() {
+        if(!isAbierta()){
+            if(!servicio.hayPendientes()){
+                this.abierta = false;
+            }            
+        }        
+    }
     
 }

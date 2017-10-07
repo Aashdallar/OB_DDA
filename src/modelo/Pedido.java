@@ -11,4 +11,19 @@ package modelo;
  */
 public class Pedido {
     
+    private Item item;
+    private boolean finalizado;
+    
+    public Item getItem(){
+        return item;
+    }    
+    public void setItem(Item item){
+        this.item = item;
+    }
+    public boolean isFinalizado(){
+        return finalizado;
+    }
+    public void setFinalizado(boolean value){
+        finalizado = value;
+    }
 }

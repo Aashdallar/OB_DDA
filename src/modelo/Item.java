@@ -13,7 +13,11 @@ public class Item {
     
     private Producto producto;
     private int cantidad;
+    private String descripcion;
     private double precioUnitario; //PARA CONGELAR EL PRECIO
+    private Pedido pedido;
+    private Estado estado;
+    public enum Estado {pendiente,enProceso,finalizado;}
     
     public Producto getProducto(){
         return producto;
@@ -26,17 +30,32 @@ public class Item {
     }
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
-    }    
+    }
+    public String getDescripcion() {
+        return descripcion;
+    }
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
     public double getPrecioUnitario(){
         return precioUnitario;
     }
     public void setPrecioUnitario(double precioUnitario) {
         this.precioUnitario = precioUnitario;
     }
-    public double getPrecioItem(){
+    public double getMonto(){
         return precioUnitario*cantidad;
     }    
-
+    public Estado getEstado(){
+        return estado;
+    }
+    public Pedido getPedido() {
+        return pedido;
+    }
+    public void setPedido(Pedido pedido) {
+        this.pedido = pedido;
+    }    
+    
     @Override
     public String toString() {
         return producto + " x" + cantidad;

@@ -30,17 +30,26 @@ public class UnidadProcesadora {
     public void agregarProducto(Producto producto) {
         this.productos.add(producto);
     }
+    public void removerProducto(Producto producto) {
+        this.productos.remove(producto);
+    }
     public ArrayList<Pedido> getPedidosProcesados() {
         return pedidosProcesados;
     }
     public void agregarPedidoProcesado(Pedido pedido) {
         this.pedidosProcesados.add(pedido);
     }
+    public void removerPedidoProcesado(Pedido pedido) {
+        this.pedidosProcesados.remove(pedido);
+    }
     public ArrayList<Pedido> getPedidosPendientes() {
         return pedidosPendientes;
     }
     public void agregarPedidoPendiente(Pedido pedido) {
         this.pedidosPendientes.add(pedido);
+    }
+    public void removerPedidoPendiente(Pedido pedido) {
+        this.pedidosPendientes.remove(pedido);
     }    
     
 }
