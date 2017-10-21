@@ -62,18 +62,23 @@ public class SistemaGestores {
     // </editor-fold>
 
     public Gestor ingresar(String nombreUsuario, String clave) throws ModeloException {
-        Gestor gestor = null;
-        for (Gestor g : gestores) {
-            if (g.getNombreUsuario().equals(nombreUsuario) && g.getClave().equals(clave)) {
-                if (!gestoresActivos.contains(g)) {
-                    gestor = g;
-                    gestoresActivos.add(gestor);
-                } else {
-                    throw new ModeloException("El usuario ya esta logueado");
+        boolean encontrado = false;
+        if(nombreUsuario != null && clave != null){
+            for (Gestor g : gestores) {
+                if (g.getNombreUsuario().equals(nombreUsuario) && g.getClave().equals(clave)) {
+                    if (!gestorLogueado(g)) {
+                        gestoresActivos.add(g);
+                        return g;
+                    } else {
+                        throw new ModeloException("El usuario ya está logueado");
+                    }
                 }
             }
+            if(!encontrado){
+                throw new ModeloException("Credenciales incorrectas");
+            }
         }
-        return gestor;
+        return null;
     }
 
     public boolean salir(Gestor gestor) {
@@ -85,6 +90,17 @@ public class SistemaGestores {
         return exito;
     }
     
+        public boolean gestorLogueado(Gestor gestor){
+        return gestor != null && gestoresActivos.contains(gestor);
+    }
+    
+    public void desloguearGestor(Gestor gestor) throws ModeloException {
+        if(false)
+            throw new ModeloException("No es posible salir del sistema");
+        if(gestoresActivos.contains(gestor))
+            gestoresActivos.remove(gestor);
+    }
+    
     public ArrayList<Producto> getProductosConStock(){
         ArrayList<Producto> lista = new ArrayList();
         for(UnidadProcesadora u : unidades){
@@ -92,5 +108,5 @@ public class SistemaGestores {
         }
         return lista;
     }
-    
+
 }

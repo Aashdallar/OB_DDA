@@ -14,11 +14,11 @@ import modelo.Pedido;
  *
  * @author SG0208533
  */
-public class ListaPedidosPanel extends javax.swing.JPanel {
+public class PanelPedidosPendientes extends javax.swing.JPanel {
 
     private ActionListener aListener;
         
-    public ListaPedidosPanel(ActionListener al, ArrayList<Pedido> pedidos) {
+    public PanelPedidosPendientes(ActionListener al, ArrayList<Pedido> pedidos) {
         initComponents();
         this.aListener = al;
         mostrar(pedidos);
@@ -52,13 +52,13 @@ public class ListaPedidosPanel extends javax.swing.JPanel {
 
         setLayout(null);
 
-        pnlListaPedidos.setLayout(new java.awt.GridLayout());
+        pnlListaPedidos.setLayout(new java.awt.GridLayout(1, 0));
         add(pnlListaPedidos);
         pnlListaPedidos.setBounds(20, 60, 360, 510);
 
         lblPedidos.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblPedidos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblPedidos.setText("Lista de Pedidos no iniciados");
+        lblPedidos.setText("Lista de Pedidos Pendientes");
         add(lblPedidos);
         lblPedidos.setBounds(0, 20, 400, 30);
     }// </editor-fold>//GEN-END:initComponents

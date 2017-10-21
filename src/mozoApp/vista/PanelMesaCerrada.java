@@ -13,10 +13,10 @@ import modelo.Mesa;
  */
 public class PanelMesaCerrada extends javax.swing.JPanel {
 
-    private PanelPrincipal panelPrincipal;
+    private PanelPrincipalMozo panelPrincipal;
     private Mesa mesa;
     
-    public PanelMesaCerrada(PanelPrincipal pPrincipal, Mesa mesa) {
+    public PanelMesaCerrada(PanelPrincipalMozo pPrincipal, Mesa mesa) {
         initComponents();
         this.panelPrincipal = pPrincipal;
         this.mesa = mesa;

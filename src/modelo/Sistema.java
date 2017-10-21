@@ -30,6 +30,11 @@ public class Sistema {
         sisM.desloguearMozo(mozo);
     }
     
+    
+    public void desloguearGestor(Gestor gestor) throws ModeloException {
+        sisG.desloguearGestor(gestor);
+    }
+    
     public ArrayList<Producto> getProductosConStock() {
         return sisG.getProductosConStock();
     }
@@ -52,30 +57,30 @@ public class Sistema {
         Mozo m1 = new Mozo();
         Mozo m2 = new Mozo();
         Mozo m3 = new Mozo();
-        Mozo m4 = new Mozo();
-        Mozo m5 = new Mozo();
-        Mozo m6 = new Mozo();
+        Gestor g4 = new Gestor();
+        Gestor g5 = new Gestor();
+        Gestor g6 = new Gestor();
         
         m1.setNombreCompleto("Jaime Talero");
         m2.setNombreCompleto("Esteban Quito");
         m3.setNombreCompleto("Aldo Lorido");
-        m4.setNombreCompleto("Marta Tuada");
-        m5.setNombreCompleto("Guillermo Nigote");
-        m6.setNombreCompleto("Mary Quita");
+        g4.setNombreCompleto("Marta Tuada");
+        g5.setNombreCompleto("Guillermo Nigote");
+        g6.setNombreCompleto("Mary Quita");
         
         m1.setNombreUsuario("a");
         m2.setNombreUsuario("b");
         m3.setNombreUsuario("c");
-        m4.setNombreUsuario("d");
-        m5.setNombreUsuario("e");
-        m6.setNombreUsuario("f");
+        g4.setNombreUsuario("d");
+        g5.setNombreUsuario("e");
+        g6.setNombreUsuario("f");
         
         m1.setClave("a");
         m2.setClave("b");
         m3.setClave("c");
-        m4.setClave("d");
-        m5.setClave("e");
-        m6.setClave("f");
+        g4.setClave("d");
+        g5.setClave("e");
+        g6.setClave("f");
         
         Mesa me01 = new Mesa();
         Mesa me02 = new Mesa();
@@ -123,15 +128,15 @@ public class Sistema {
         sisM.agregarMozo(m1);
         sisM.agregarMozo(m2);
         sisM.agregarMozo(m3);
-        sisM.agregarMozo(m4);
-        sisM.agregarMozo(m5);
-        sisM.agregarMozo(m6);
+        sisG.agregarGestor(g4);
+        sisG.agregarGestor(g5);
+        sisG.agregarGestor(g6);
         
         UnidadProcesadora u1 = new UnidadProcesadora();
         UnidadProcesadora u2 = new UnidadProcesadora();
         
         u1.setNombre("Cocina");
-        u1.setNombre("Bar");
+        u2.setNombre("Bar");
         
         Producto p01 = new Producto("c001","Pescado a la plancha",260.00,15,u1);
         Producto p02 = new Producto("c002","Milanesa napolitana",360.00,25,u1);
@@ -139,12 +144,13 @@ public class Sistema {
         Producto p04 = new Producto("c004","Empanadas variadas (1un)",50.00,45,u1);
         Producto p05 = new Producto("c005","Tallarines Lomein",300.00,40,u1);
         Producto p06 = new Producto("c006","Arrollado de pollo",350.00,0,u1);
-        Producto p07 = new Producto("b001","Refresco 1Lt",120.00,19,u1);
-        Producto p08 = new Producto("b002","Agua 500ml",60.00,15,u1);
-        Producto p09 = new Producto("b003","Cerveza 1Lt",180.00,1,u1);
+        Producto p07 = new Producto("b001","Refresco 1Lt",120.00,19,u2);
+        Producto p08 = new Producto("b002","Agua 500ml",60.00,15,u2);
+        Producto p09 = new Producto("b003","Cerveza 1Lt",180.00,1,u2);
         
         sisG.agregarUnidadProcesadora(u1);
         sisG.agregarUnidadProcesadora(u2);
-    }
+        
+     }
 
 }

@@ -3,55 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gestorApp.vista;
+package mozoApp.vista;
 
-import gestorApp.controlador.LoginControladorGestor;
-import gestorApp.controlador.LoginVistaGestor;
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import modelo.Gestor;
-import modelo.UnidadProcesadora;
-
+import modelo.Mozo;
+import mozoApp.controlador.LoginControladorMozo;
+import mozoApp.controlador.LoginVistaMozo;
 
 /**
  *
  * @author SG0208533
  */
-public class LoginDiag extends javax.swing.JDialog implements LoginVistaGestor {
+public class LoginDialog extends javax.swing.JDialog implements LoginVistaMozo {
     
-    private LoginControladorGestor controlador;
-    private Gestor gestor;
+    private LoginControladorMozo controlador;
 
-    public LoginDiag(java.awt.Frame parent, boolean modal, Gestor gestor) {
+    public LoginDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setTitle("MozoApp");
         setLocationRelativeTo(null);
-        controlador = new LoginControladorGestor(this);
-        this.gestor = gestor;
-    }
-    
-    public void login() {
-        controlador.empezarLogin(txtUsuario.getText(), txtPassword.getText());
-    }
-    
-    public void undadSeleccionada(UnidadProcesadora unidad){
-        controlador.finalizarLogin(unidad);
-    }
-    
-    @Override
-    public void error(String mensaje) {
-        JOptionPane.showMessageDialog(null, mensaje);
-    }
-
-    @Override
-    public void seleccionarUnidadProcesadora(ArrayList<UnidadProcesadora> unidades) {
-        new SeleccionarUnidadDiag(null, true, unidades, this);
-    }
-    
-    @Override
-    public void ingresar(Gestor gestor) {
-        dispose();
-        new FrameContenedorGestor(gestor);
+        controlador = new LoginControladorMozo(this);
     }
 
     @SuppressWarnings("unchecked")
@@ -134,4 +106,18 @@ public class LoginDiag extends javax.swing.JDialog implements LoginVistaGestor {
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 
+    public void login() {
+        controlador.login(txtUsuario.getText(), txtPassword.getText());
+    }
+
+    @Override
+    public void error(String mensaje) {
+        JOptionPane.showMessageDialog(this, mensaje);
+    }
+
+    @Override
+    public void ingresar(Mozo mozo) {
+        dispose();
+        new FrameContenedor(mozo);
+    }
 }

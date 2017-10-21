@@ -31,7 +31,7 @@ public class AppLauncher extends javax.swing.JDialog {
 
         startGestoresApp = new javax.swing.JButton();
         startMozosApp = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
+        etiquetaSeleccionApp = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -43,6 +43,11 @@ public class AppLauncher extends javax.swing.JDialog {
 
         startGestoresApp.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         startGestoresApp.setText("Gestores");
+        startGestoresApp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                startGestoresAppActionPerformed(evt);
+            }
+        });
         getContentPane().add(startGestoresApp);
         startGestoresApp.setBounds(230, 80, 180, 170);
 
@@ -56,26 +61,30 @@ public class AppLauncher extends javax.swing.JDialog {
         getContentPane().add(startMozosApp);
         startMozosApp.setBounds(30, 80, 180, 170);
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Seleccione la applicación");
-        getContentPane().add(jLabel2);
-        jLabel2.setBounds(30, 40, 380, 30);
+        etiquetaSeleccionApp.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        etiquetaSeleccionApp.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        etiquetaSeleccionApp.setText("Seleccione la applicación");
+        getContentPane().add(etiquetaSeleccionApp);
+        etiquetaSeleccionApp.setBounds(30, 40, 380, 30);
 
         setBounds(0, 0, 457, 331);
     }// </editor-fold>//GEN-END:initComponents
 
     private void startMozosAppActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startMozosAppActionPerformed
-        new mozoApp.vista.LoginDiag(null, false).setVisible(true);
+        new mozoApp.vista.LoginDialog(null, false).setVisible(true);
     }//GEN-LAST:event_startMozosAppActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         System.exit(0);
     }//GEN-LAST:event_formWindowClosing
 
+    private void startGestoresAppActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startGestoresAppActionPerformed
+        new gestorApp.vista.LoginDialog(null, false).setVisible(true);
+    }//GEN-LAST:event_startGestoresAppActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel etiquetaSeleccionApp;
     private javax.swing.JButton startGestoresApp;
     private javax.swing.JButton startMozosApp;
     // End of variables declaration//GEN-END:variables

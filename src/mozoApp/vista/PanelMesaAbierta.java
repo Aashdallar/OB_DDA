@@ -21,9 +21,9 @@ import modelo.Servicio;
 public class PanelMesaAbierta extends javax.swing.JPanel {
 
     private Mesa mesa;
-    private PanelPrincipal panelPrincipal;
+    private PanelPrincipalMozo panelPrincipal;
     
-    public PanelMesaAbierta(PanelPrincipal pPrincipal, Mesa mesa) {
+    public PanelMesaAbierta(PanelPrincipalMozo pPrincipal, Mesa mesa) {
         initComponents();
         this.mesa = mesa;
         this.panelPrincipal = pPrincipal;

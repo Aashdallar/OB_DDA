@@ -12,11 +12,11 @@ import modelo.Transferencia;
  *
  * @author SG0208533
  */
-public class DiagTransferenciaSolicitar extends javax.swing.JDialog {
+public class DialogTransferenciaSolicitar extends javax.swing.JDialog {
 
-    private PanelPrincipal panelPrincipal;
+    private PanelPrincipalMozo panelPrincipal;
     private Transferencia transferencia;
-    public DiagTransferenciaSolicitar(java.awt.Frame parent, boolean modal, Transferencia transferencia, PanelPrincipal pPrincipal) {
+    public DialogTransferenciaSolicitar(java.awt.Frame parent, boolean modal, Transferencia transferencia, PanelPrincipalMozo pPrincipal) {
         super(parent, modal);
         initComponents();
         panelPrincipal = pPrincipal;

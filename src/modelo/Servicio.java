@@ -58,5 +58,10 @@ public class Servicio {
         }
         return false;
     }
+
+    @Override
+    public String toString() {
+        return "Servicio: " + mesa.toString();
+    }  
     
 }

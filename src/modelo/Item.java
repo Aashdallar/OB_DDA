@@ -27,6 +27,8 @@ public class Item {
         if(!producto.hayStock(cantidad))
             throw new ModeloException("Sin Stock");
     }
+
+   
     public enum Estado {pendiente,enProceso,finalizado;}
 
     // <editor-fold defaultstate="collapsed" desc="Gets y Sets">
@@ -79,11 +81,11 @@ public class Item {
     public double getMonto(){
         return precioUnitario*cantidad;
     }
-    
+       
     public void hacerPedido(Servicio servicio){
+        setServicio(servicio);
         setPedido(new Pedido(this));
         producto.elaborarProducto(cantidad);
-        setServicio(servicio);
     }
     
     @Override

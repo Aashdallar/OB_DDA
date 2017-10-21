@@ -6,23 +6,24 @@
 package modelo;
 
 import java.util.ArrayList;
+import java.util.Observable;
 
 /**
  *
  * @author SG0219779
  */
-public class UnidadProcesadora {
+public class UnidadProcesadora extends Observable{
     
     private String nombre;
     private ArrayList<Producto> productos;
-    private ArrayList<Pedido> pedidosProcesados;
+    private ArrayList<Pedido> pedidosEnProceso;
     private ArrayList<Pedido> pedidosPendientes;
     
     // <editor-fold defaultstate="collapsed" desc="Sets, Gets, Agregar y Remover Productos-Pedidos">
     
     public UnidadProcesadora() {
         this.productos = new ArrayList();
-        this.pedidosProcesados = new ArrayList();
+        this.pedidosEnProceso = new ArrayList();
         this.pedidosPendientes = new ArrayList();
     }
 
@@ -41,15 +42,15 @@ public class UnidadProcesadora {
     public void removerProducto(Producto producto) {
         this.productos.remove(producto);
     }
-    public ArrayList<Pedido> getPedidosProcesados() {
-        return pedidosProcesados;
+    public ArrayList<Pedido> getPedidosEnProceso() {
+        return pedidosEnProceso;
     }
-    public void agregarPedidoProcesado(Pedido pedido) {
-        this.pedidosProcesados.add(pedido);
+    public void agregarPedidoEnProceso(Pedido pedido) {
+        this.pedidosEnProceso.add(pedido);
     }
-    public void removerPedidoProcesado(Pedido pedido) {
+    public void removerPedidoEnProceso(Pedido pedido) {
         if(pedido.estaFinalizado()){
-            this.pedidosProcesados.remove(pedido);
+            this.pedidosEnProceso.remove(pedido);
         }
     }
     public ArrayList<Pedido> getPedidosPendientes() {
@@ -58,6 +59,7 @@ public class UnidadProcesadora {
     public void agregarPedidoPendiente(Pedido pedido) {
         if(!pedido.estaFinalizado()){
             this.pedidosPendientes.add(pedido);
+            avisar(eventos.pedidos);
         }        
     }
     public void removerPedidoPendiente(Pedido pedido) {
@@ -65,10 +67,33 @@ public class UnidadProcesadora {
     }   
     // </editor-fold>
     
-    public boolean finalizarPedido(Pedido pedido){
+    // <editor-fold defaultstate="collapsed" desc="Observable Section">  
+    private void avisar(eventos eventos) {
+        setChanged();
+        notifyObservers(eventos);
+    }
+
+    public enum eventos {
+        pedidos;
+    }
+    // </editor-fold>    
+
+    public boolean procesarPedido(Pedido pedido){
         if(pedidosPendientes.contains(pedido)){
             removerPedidoPendiente(pedido);
-            agregarPedidoProcesado(pedido);
+            pedido.procesar();
+            agregarPedidoEnProceso(pedido);
+            avisar(eventos.pedidos);
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean finalizarPedido(Pedido pedido){
+        if(pedidosEnProceso.contains(pedido)){
+            removerPedidoEnProceso(pedido);
+            pedido.finalizar();
+            avisar(eventos.pedidos);
             return true;
         }
         return false;
@@ -87,7 +112,6 @@ public class UnidadProcesadora {
     @Override
     public String toString() {
         return nombre;
-    }
-    
+    }    
     
 }

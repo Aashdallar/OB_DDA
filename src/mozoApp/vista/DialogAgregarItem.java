@@ -14,12 +14,12 @@ import modelo.Producto;
 import modelo.Servicio;
 import modelo.UnidadProcesadora;
 
-public class DiagAgregarItem extends javax.swing.JDialog {
+public class DialogAgregarItem extends javax.swing.JDialog {
     
-    private PanelPrincipal panelPrincipal;
+    private PanelPrincipalMozo panelPrincipal;
     private Servicio servicio;
 
-    public DiagAgregarItem(java.awt.Frame parent, boolean modal, PanelPrincipal pPrincipal, Servicio servicio, ArrayList<Producto> productos) {
+    public DialogAgregarItem(java.awt.Frame parent, boolean modal, PanelPrincipalMozo pPrincipal, Servicio servicio, ArrayList<Producto> productos) {
         super(parent, modal);
         initComponents();
         cargarComboBox(productos);

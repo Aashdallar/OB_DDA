@@ -89,16 +89,12 @@ public class MainControladorMozo implements Observer {
             vista.mostrarTransferenciaSolicitud(mozo.getTransferencia());
         } else if(evento.equals(Mozo.eventos.transferenciaRechazada)){
             vista.mostrarMesas(null);
-            vista.mostrarAlerta("La solicitud de transferecia fue rechazada");
+            vista.mostrarAlerta("La solicitud de transferecia fue rechazada.");
         } else if(evento.equals(Mozo.eventos.transferenciaAceptada)){
             vista.mostrarMesas(null);
-            vista.mostrarAlerta("La solicitud de transferecia fue aceptada");
-        }
-        
-        else if(evento.equals(Mozo.eventos.pedido)){
-            
-        } else if(evento.equals(Mozo.eventos.mesa)){
-            
+            vista.mostrarAlerta("La solicitud de transferecia fue aceptada.");
+        } else if(evento.equals(Mozo.eventos.pedido)){
+            vista.mostrarMesas(null);
         }
     }
 

@@ -15,12 +15,12 @@ import modelo.Mozo;
  *
  * @author sg0208533
  */
-public class DiagTransferirMesa extends javax.swing.JDialog {
+public class DialogTransferirMesa extends javax.swing.JDialog {
     
-    private PanelPrincipal panelPrincipal;
+    private PanelPrincipalMozo panelPrincipal;
     private Mesa mesa;
 
-    public DiagTransferirMesa(java.awt.Frame parent, boolean modal, Mesa mesa, ArrayList<Mozo> mozosLogueados, PanelPrincipal pPrincipal) {
+    public DialogTransferirMesa(java.awt.Frame parent, boolean modal, Mesa mesa, ArrayList<Mozo> mozosLogueados, PanelPrincipalMozo pPrincipal) {
         super(parent, modal);
         initComponents();
         this.panelPrincipal = pPrincipal;

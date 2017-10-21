@@ -106,4 +106,9 @@ public class Mesa {
         
         mozoOrigen.avisar(Mozo.eventos.transferenciaAceptada);
     }
+
+    @Override
+    public String toString() {
+        return "Mesa:" + nro + ", " + mozo;
+    }
 }

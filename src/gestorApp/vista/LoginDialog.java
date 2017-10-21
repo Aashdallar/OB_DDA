@@ -3,27 +3,53 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package mozoApp.vista;
+package gestorApp.vista;
 
+import gestorApp.controlador.LoginControladorGestor;
+import gestorApp.controlador.LoginVistaGestor;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import modelo.Mozo;
-import mozoApp.controlador.LoginControladorMozo;
-import mozoApp.controlador.LoginVistaMozo;
+import modelo.Gestor;
+import modelo.UnidadProcesadora;
+
 
 /**
  *
  * @author SG0208533
  */
-public class LoginDiag extends javax.swing.JDialog implements LoginVistaMozo {
+public class LoginDialog extends javax.swing.JDialog implements LoginVistaGestor {
     
-    private LoginControladorMozo controlador;
+    private LoginControladorGestor controlador;
 
-    public LoginDiag(java.awt.Frame parent, boolean modal) {
+    public LoginDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        setTitle("MozoApp");
         setLocationRelativeTo(null);
-        controlador = new LoginControladorMozo(this);
+        controlador = new LoginControladorGestor(this);
+    }
+    
+    public void login() {
+        controlador.empezarLogin(txtUsuario.getText(), txtPassword.getText());
+    }
+    
+    public void unidadSeleccionada(UnidadProcesadora unidad){
+        controlador.finalizarLogin(unidad);
+    }
+    
+    @Override
+    public void error(String mensaje) {
+        JOptionPane.showMessageDialog(null, mensaje);
+    }
+
+    @Override
+    public void seleccionarUnidadProcesadora(ArrayList<UnidadProcesadora> unidades) {
+        new SeleccionarUnidadDialog(null, false, unidades, this);
+    }
+    
+    @Override
+    public void ingresar(Gestor gestor) {
+        dispose();
+        new FrameContenedorGestor(gestor);
     }
 
     @SuppressWarnings("unchecked")
@@ -106,18 +132,4 @@ public class LoginDiag extends javax.swing.JDialog implements LoginVistaMozo {
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 
-    public void login() {
-        controlador.login(txtUsuario.getText(), txtPassword.getText());
-    }
-
-    @Override
-    public void error(String mensaje) {
-        JOptionPane.showMessageDialog(this, mensaje);
-    }
-
-    @Override
-    public void ingresar(Mozo mozo) {
-        dispose();
-        new FrameContenedor(mozo);
-    }
 }

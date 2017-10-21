@@ -15,13 +15,13 @@ import modelo.Transferencia;
 import mozoApp.controlador.MainControladorMozo;
 import mozoApp.controlador.MainVistaMozo;
 
-public class PanelPrincipal extends JPanel implements ActionListener, MainVistaMozo {
+public class PanelPrincipalMozo extends JPanel implements ActionListener, MainVistaMozo {
     
     private MainControladorMozo controlador;
     private Mozo mozo;
     private Mesa mesaSeleccionada;
     
-    public PanelPrincipal(Mozo mozo) {
+    public PanelPrincipalMozo(Mozo mozo) {
         this.mozo = mozo;
         setLayout(new GridLayout(1,2));
         controlador = new MainControladorMozo(this, mozo);
@@ -68,12 +68,12 @@ public class PanelPrincipal extends JPanel implements ActionListener, MainVistaM
     
     @Override
     public void mostrarTransferirMesa(ArrayList<Mozo> mozosLogueados) {
-        new DiagTransferirMesa(null, true, mesaSeleccionada, mozosLogueados, this);
+        new DialogTransferirMesa(null, true, mesaSeleccionada, mozosLogueados, this);
     }
 
     @Override
     public void mostrarTransferenciaSolicitud(Transferencia transferencia) {
-        new DiagTransferenciaSolicitar(null, true, transferencia, this);
+        new DialogTransferenciaSolicitar(null, true, transferencia, this);
     }
     
     private void cargarPanel(PanelListaMesas pMesas, JPanel pEstatico){
@@ -93,7 +93,7 @@ public class PanelPrincipal extends JPanel implements ActionListener, MainVistaM
     }
     
     public void AgregarItem() {
-        JDialog agregarItem = new DiagAgregarItem(null, false, this, mesaSeleccionada.getServicio(), controlador.getProductosConStock());
+        JDialog agregarItem = new DialogAgregarItem(null, false, this, mesaSeleccionada.getServicio(), controlador.getProductosConStock());
         agregarItem.setLocationRelativeTo(this);
         agregarItem.setVisible(true);
     }

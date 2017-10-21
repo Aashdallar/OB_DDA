@@ -14,15 +14,17 @@ import modelo.UnidadProcesadora;
  *
  * @author SG0208533
  */
-public class SeleccionarUnidadDiag extends javax.swing.JDialog {
+public class SeleccionarUnidadDialog extends javax.swing.JDialog {
 
-    private LoginDiag loginDiag;
+    private LoginDialog loginDialog;
     
-    public SeleccionarUnidadDiag(java.awt.Frame parent, boolean modal, ArrayList<UnidadProcesadora> unidades, LoginDiag loginDiag) {
+    public SeleccionarUnidadDialog(java.awt.Frame parent, boolean modal, ArrayList<UnidadProcesadora> unidades, LoginDialog loginDialog) {
         super(parent, modal);
         initComponents();
-        this.loginDiag = loginDiag;
+        this.loginDialog = loginDialog;
         cargarUnidades(unidades);
+        setLocationRelativeTo(null);
+        setVisible(true);
     }
     
     private void cargarUnidades(ArrayList<UnidadProcesadora> unidades){
@@ -44,7 +46,8 @@ public class SeleccionarUnidadDiag extends javax.swing.JDialog {
     private void finalizarLogin(){
         try{
             UnidadProcesadora unidad = (UnidadProcesadora)cmbUnidadProcesadora.getSelectedItem();
-            loginDiag.undadSeleccionada(unidad);
+            loginDialog.unidadSeleccionada(unidad);
+            dispose();
         } catch (ClassCastException ex) {
             JOptionPane.showMessageDialog(this, "Seleccione una unidad de proceso válida");
         }
@@ -95,7 +98,7 @@ public class SeleccionarUnidadDiag extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cmbUnidadProcesadoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbUnidadProcesadoraActionPerformed
-        finalizarLogin();
+
     }//GEN-LAST:event_cmbUnidadProcesadoraActionPerformed
 
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed

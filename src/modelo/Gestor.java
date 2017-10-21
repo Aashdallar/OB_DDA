@@ -34,34 +34,18 @@ public class Gestor extends Usuario {
     }
     
     // </editor-fold>
-    
-    // <editor-fold defaultstate="collapsed" desc="Observable Section">  
-    private void avisar(eventos eventos) {
-        setChanged();
-        notifyObservers(eventos);
-    }
-
-    public enum eventos {
-        pedidos;
-    }
-    // </editor-fold>      
-    
+        
     public void trabajarPedido(Pedido pedido) {
         this.pedidos.add(pedido);
-        this.unidad.agregarPedidoPendiente(pedido);
-        pedido.asignarseAlPedido(this);
-        avisar(eventos.pedidos);
+        this.unidad.procesarPedido(pedido);
+        pedido.asignarGestor(this);
+        pedido.procesar();
     }
 
     public void finalizarPedido(Pedido pedido) {
-        if(pedidos.contains(pedido)){       
-            pedido.setFinalizado(true);
-            if(this.unidad.finalizarPedido(pedido)){
-                this.pedidos.remove(pedido);
-                avisar(eventos.pedidos);
-            }else{
-                pedido.setFinalizado(false);
-            }
+        if(pedidos.contains(pedido)){  
+            this.pedidos.remove(pedido);
+            this.unidad.finalizarPedido(pedido);
         }        
     }
 

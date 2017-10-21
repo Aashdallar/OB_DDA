@@ -11,9 +11,9 @@ import modelo.Mozo;
 public class FrameContenedor extends JFrame {
 
     public FrameContenedor(Mozo mozo) {
-        setSize(800, 600);
+        setSize(800, 700);
         setTitle("Hola " + mozo.getNombreCompleto() + "!");
-        PanelPrincipal panelPrincipal = new PanelPrincipal(mozo);
+        PanelPrincipalMozo panelPrincipal = new PanelPrincipalMozo(mozo);
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
