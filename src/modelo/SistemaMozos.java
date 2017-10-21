@@ -16,7 +16,12 @@ public class SistemaMozos {
     private ArrayList<Mozo> mozos;
     private ArrayList<Mozo> mozosActivos;
 
-    // <editor-fold defaultstate="collapsed" desc="Agregar y Remover Gestores-Unidades">   
+    // <editor-fold defaultstate="collapsed" desc="Agregar y Remover Mozos + Constructor">   
+    protected SistemaMozos() {
+        this.mozos = new ArrayList();
+        this.mozosActivos = new ArrayList();
+    }
+    
     public ArrayList<Mozo> getMozos() {
         return mozos;
     }
@@ -42,17 +47,24 @@ public class SistemaMozos {
     }
     // </editor-fold>
 
-    public Mozo ingresar(String nombreUsuario, String clave) {
-        Mozo mozo = null;
-        for (Mozo m : mozos) {
-            if (m.getNombreUsuario().equals(nombreUsuario) && m.getClave().equals(clave)) {
-                if (!mozosActivos.contains(m)) {
-                    mozo = m;
-                    mozosActivos.add(mozo);
+    public Mozo ingresar(String nombreUsuario, String clave) throws ModeloException {
+        boolean encontrado = false;
+        if(nombreUsuario != null && clave != null){
+            for (Mozo m : mozos) {
+                if (m.getNombreUsuario().equals(nombreUsuario) && m.getClave().equals(clave)) {
+                    if (!mozoLogueado(m)) {
+                        mozosActivos.add(m);
+                        return m;
+                    } else {
+                        throw new ModeloException("El usuario ya está logueado");
+                    }
                 }
             }
+            if(!encontrado){
+                throw new ModeloException("Credenciales incorrectas");
+            }
         }
-        return mozo;
+        return null;
     }
 
     public boolean salir(Mozo mozo) {
@@ -64,6 +76,17 @@ public class SistemaMozos {
             }                        
         }
         return exito;
+    }
+
+    public boolean mozoLogueado(Mozo mozo){
+        return mozo != null && mozosActivos.contains(mozo);
+    }
+
+    void desloguearMozo(Mozo mozo) throws ModeloException {
+        if(mozo.tieneMesasAbiertas())
+            throw new ModeloException("No es posible salir del sistema teniendo mesas abiertas\nCierre o transfieralas antes de salir");
+        if(mozosActivos.contains(mozo))
+            mozosActivos.remove(mozo);
     }
 
 }

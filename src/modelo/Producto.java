@@ -17,7 +17,18 @@ public class Producto {
     private int stock;
     private UnidadProcesadora unidad;
 
-    // <editor-fold defaultstate="collapsed" desc="Gets y Sets">    
+    // <editor-fold defaultstate="collapsed" desc="Gets y Sets">
+    public Producto() {
+    }
+
+    public Producto(String codigo, String nombre, double precioUnitario, int stock, UnidadProcesadora unidad) {
+        this.codigo = codigo;
+        this.nombre = nombre;
+        this.precioUnitario = precioUnitario;
+        this.stock = stock;
+        setUnidad(unidad);
+    }
+
     public String getCodigo() {
         return codigo;
     }
@@ -47,6 +58,7 @@ public class Producto {
     }
     public void setUnidad(UnidadProcesadora unidad) {
         this.unidad = unidad;
+        this.unidad.agregarProducto(this);
     }
     // </editor-fold>
     
@@ -56,6 +68,10 @@ public class Producto {
         }else{
             return false;
         }
+    }
+    
+    public void elaborarProducto(int cantidad){
+        this.stock -= cantidad;
     }
 
     @Override

@@ -12,7 +12,7 @@ package modelo;
 public class Transferencia {
         
     private Mesa mesa;    
-    private Mozo mozo;
+    private Mozo mozoDestino;
     
     // <editor-fold defaultstate="collapsed" desc="Gets y Sets">      
     public Mesa getMesa(){
@@ -20,20 +20,31 @@ public class Transferencia {
     }   
     public void setMesa(Mesa mesa) {
         this.mesa = mesa;
+        mesa.setTransferencia(this);
     }    
-    public Mozo getMozo(){
-        return mozo;
+    public Mozo getMozoDestino(){
+        return mozoDestino;
     }
-    public void setMozo(Mozo mozo) {
-        this.mozo = mozo;
+    public void setMozoDestino(Mozo mozo) {
+        this.mozoDestino = mozo;
+        mozoDestino.setTransferencia(this);
     }
     // </editor-fold>   
     
-    public boolean confirmar(){
-        mozo.agregarMesa(mesa);
-        mozo.setTransferencia(null);
-        mesa.setTransferencia(null);
-        return true;
+    public void confirmar(){
+        mesa.transferenciaAceptada(mozoDestino);
+    }
+    
+    public boolean validar(){
+        return mesa != null && mozoDestino != null;
+    }
+
+    void notificar() {
+        mozoDestino.avisar(Mozo.eventos.transferenciaSolicitadaTo);
+    }
+
+    void transferenciaRechazada() {
+        mesa.transferenciaRechazada(mozoDestino);
     }
     
 }

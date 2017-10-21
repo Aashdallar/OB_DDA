@@ -40,10 +40,14 @@ public abstract class Usuario extends Observable{
 
     @Override
     public boolean equals(Object obj) { 
-        Mozo mozo = (Mozo)obj;
-        return nombreUsuario.equals(mozo.getNombreUsuario());
+        Usuario usuario = (Usuario)obj;
+        return nombreUsuario.equals(usuario.getNombreUsuario());
     }
-    
+
+    @Override
+    public String toString() {
+        return nombreCompleto;
+    }
     
     
 }

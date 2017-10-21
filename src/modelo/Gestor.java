@@ -28,6 +28,11 @@ public class Gestor extends Usuario {
     public ArrayList<Pedido> getPedidos() {
         return pedidos;
     }
+
+    public Gestor() {
+        this.pedidos = new ArrayList();
+    }
+    
     // </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="Observable Section">  
@@ -44,6 +49,7 @@ public class Gestor extends Usuario {
     public void trabajarPedido(Pedido pedido) {
         this.pedidos.add(pedido);
         this.unidad.agregarPedidoPendiente(pedido);
+        pedido.asignarseAlPedido(this);
         avisar(eventos.pedidos);
     }
 
@@ -55,7 +61,7 @@ public class Gestor extends Usuario {
                 avisar(eventos.pedidos);
             }else{
                 pedido.setFinalizado(false);
-            }        
+            }
         }        
     }
 

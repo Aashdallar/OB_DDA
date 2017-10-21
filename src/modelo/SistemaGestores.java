@@ -17,7 +17,13 @@ public class SistemaGestores {
     private ArrayList<Gestor> gestoresActivos;
     private ArrayList<UnidadProcesadora> unidades;
 
-    // <editor-fold defaultstate="collapsed" desc="Agregar y Remover Gestores-Unidades">    
+    // <editor-fold defaultstate="collapsed" desc="Agregar y Remover Gestores-Unidades + Constructor">
+    protected SistemaGestores() {
+        this.gestores = new ArrayList();
+        this.gestoresActivos = new ArrayList();
+        this.unidades = new ArrayList();
+    }
+    
     public ArrayList<Gestor> getGestors() {
         return gestores;
     }
@@ -49,15 +55,21 @@ public class SistemaGestores {
     public void removerUnidadProcesadora(UnidadProcesadora unidad) {
         this.unidades.remove(unidad);
     }
+    
+    public ArrayList<UnidadProcesadora> retornarUnidadesProcesadoras(){
+        return this.unidades;
+    }
     // </editor-fold>
 
-    public Gestor ingresar(String nombreUsuario, String clave) {
+    public Gestor ingresar(String nombreUsuario, String clave) throws ModeloException {
         Gestor gestor = null;
-        for (Gestor m : gestores) {
-            if (m.getNombreUsuario().equals(nombreUsuario) && m.getClave().equals(clave)) {
-                if (!gestoresActivos.contains(m)) {
-                    gestor = m;
+        for (Gestor g : gestores) {
+            if (g.getNombreUsuario().equals(nombreUsuario) && g.getClave().equals(clave)) {
+                if (!gestoresActivos.contains(g)) {
+                    gestor = g;
                     gestoresActivos.add(gestor);
+                } else {
+                    throw new ModeloException("El usuario ya esta logueado");
                 }
             }
         }
@@ -71,6 +83,14 @@ public class SistemaGestores {
             exito = true;                
         }
         return exito;
+    }
+    
+    public ArrayList<Producto> getProductosConStock(){
+        ArrayList<Producto> lista = new ArrayList();
+        for(UnidadProcesadora u : unidades){
+            lista.addAll(u.getProductosConStock());
+        }
+        return lista;
     }
     
 }

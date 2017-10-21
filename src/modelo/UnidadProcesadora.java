@@ -18,7 +18,14 @@ public class UnidadProcesadora {
     private ArrayList<Pedido> pedidosProcesados;
     private ArrayList<Pedido> pedidosPendientes;
     
-    // <editor-fold defaultstate="collapsed" desc="Sets, Gets, Agregar y Remover Productos-Pedidos">   
+    // <editor-fold defaultstate="collapsed" desc="Sets, Gets, Agregar y Remover Productos-Pedidos">
+    
+    public UnidadProcesadora() {
+        this.productos = new ArrayList();
+        this.pedidosProcesados = new ArrayList();
+        this.pedidosPendientes = new ArrayList();
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -66,5 +73,21 @@ public class UnidadProcesadora {
         }
         return false;
     }
+    
+    public ArrayList<Producto> getProductosConStock(){
+        ArrayList<Producto> lista = new ArrayList();
+        if(productos != null){
+            for(Producto p : productos){
+                if(p.getStock() > 0) lista.add(p);
+            }
+        }
+        return lista;
+    }
+
+    @Override
+    public String toString() {
+        return nombre;
+    }
+    
     
 }

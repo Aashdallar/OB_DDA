@@ -14,13 +14,28 @@ import java.util.ArrayList;
 public class Servicio {
    
     private ArrayList<Item> items;
+    private Mesa mesa;
     
-    // <editor-fold defaultstate="collapsed" desc="Agregar-Remover Items">    
-    public ArrayList<Item> getItems(){
+    // <editor-fold defaultstate="collapsed" desc="Agregar-Remover Items">
+    public Servicio(){
+        this.items = new ArrayList();
+    }
+
+    public Mesa getMesa() {
+        return mesa;
+    }
+
+    public void setMesa(Mesa mesa) {
+        this.mesa = mesa;
+    }
+    
+    public ArrayList<Item> getItems() {
         return items;
     }
-    public void agregarItem(Item item) {
+    public void agregarItem(Item item) throws ModeloException {
+        item.validar();
         this.items.add(item);
+        item.hacerPedido(this);
     }
     public void removerItem(Item item) {
         this.items.remove(item);

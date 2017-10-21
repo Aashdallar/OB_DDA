@@ -17,6 +17,11 @@ public class Mozo extends Usuario {
     private Transferencia transferencia;
 
     // <editor-fold defaultstate="collapsed" desc="Gets, Sets y Agregar-Remover Mesas">
+    
+    public Mozo() {
+        this.mesas = new ArrayList();
+    }
+
     public ArrayList<Mesa> getMesas() {
         return mesas;
     }
@@ -39,7 +44,6 @@ public class Mozo extends Usuario {
     public void setTransferencia(Transferencia transferencia) {
         this.transferencia = transferencia;
     }
-
     // </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="Observable Section">  
@@ -48,27 +52,54 @@ public class Mozo extends Usuario {
         notifyObservers(eventos);
     }
 
+    public void solicitarTransferencia(Transferencia transferencia) {
+        setTransferencia(transferencia);
+        avisar(eventos.transferenciaSolicitadaFrom);
+        transferencia.notificar();
+    }
+
+    public boolean tiene(Mesa mesa) {
+        return mesa != null && mesas.contains(mesa);
+    }
+
     public enum eventos {
-        mesa, transferencia, pedidos;
+        mesa,
+        transferenciaSolicitadaTo,
+        transferenciaSolicitadaFrom,
+        transferenciaRechazada,
+        transferenciaAceptada,
+        pedido
     }
     // </editor-fold>
 
+    public boolean tieneMesas(){
+        return mesas != null && !mesas.isEmpty();
+    }
+    
     public boolean tieneMesasAbiertas() {
-        for (Mesa m : mesas) {
-            if (m.estaAbierta()) {
-                return true;
+        if(tieneMesas()){
+            for (Mesa m : mesas) {
+                if (m.estaAbierta()) {
+                    return true;
+                }
             }
         }
         return false;
     }
 
-    public boolean aceptarTransferencia() {
+    public void aceptarTransferencia() {
         if (transferencia != null) {
-            if(transferencia.confirmar()){
-                avisar(eventos.transferencia);
-                return true;
-            }            
+            transferencia.confirmar();
         }
-        return false;
     }
+    
+    public void rechazarTransferencia(){
+        transferencia.transferenciaRechazada();
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
+    
 }
