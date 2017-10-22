@@ -23,7 +23,7 @@ public class FrameContenedorGestor extends JFrame {
                     JOptionPane.YES_NO_OPTION,
                     JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
                     try {
-                        panelPrincipal.desloguearGestor(gestor);
+                        panelPrincipal.desloguearGestor();
                         dispose();
                     } catch (ModeloException ex) {
                         Logger.getLogger(FrameContenedorGestor.class.getName()).log(Level.SEVERE, null, ex);

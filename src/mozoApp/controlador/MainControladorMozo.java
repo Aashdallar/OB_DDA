@@ -38,6 +38,7 @@ public class MainControladorMozo implements Observer {
     public boolean desloguearMozo() {
         try{
             sistema.desloguearMozo(mozo);
+            mozo.deleteObserver(this);
             return true;
         } catch (ModeloException  ex) {
             vista.mostrarAlerta(ex.getMessage());

@@ -31,8 +31,9 @@ public class MainControladorGestor implements Observer {
         mostrarPedidos();
     }
 
-    public void desloguearGestor(Gestor gestor) throws ModeloException {
+    public void desloguearGestor() throws ModeloException {
         sistema.desloguearGestor(gestor);
+        unidad.deleteObserver(this);
     }
 
     public void mostrarPedidos() {

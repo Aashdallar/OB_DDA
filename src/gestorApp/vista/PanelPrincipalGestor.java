@@ -39,8 +39,8 @@ public class PanelPrincipalGestor extends JPanel implements ActionListener, Main
           controlador.deseleccionarPedido();
     }
 
-    public void desloguearGestor(Gestor gestor) throws ModeloException {
-        controlador.desloguearGestor(gestor);
+    public void desloguearGestor() throws ModeloException {
+        controlador.desloguearGestor();
     }
 
     @Override
