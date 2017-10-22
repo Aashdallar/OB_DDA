@@ -74,16 +74,18 @@ public class PanelMesaAbierta extends javax.swing.JPanel {
     private String[] createTableRow(Item item){
         // Nombre ($ 00)
         // Estado (Gestor)
-        // Estados: No iniciado, Iniciado, Finalizado
+        // Estados: Pendiente, En Proceso, Finalizado
         String estado = "";
-        if(!item.getPedido().estaFinalizado()){
-            if(item.getPedido().getGestor() == null){
-                estado = "No iniciado";
-            } else {
-                estado = "Iniciado (" + item.getPedido().getGestor().getNombreCompleto() + ")";
-            }
-        } else {
-            estado = "Finalizado (" + item.getPedido().getGestor().getNombreCompleto() + ")";
+        switch (item.getEstado()){
+            case pendiente:
+                estado = "Pendiente";
+                break;
+            case enProceso:
+                estado = "En Proceso (" + item.getPedido().getGestor().getNombreCompleto() + ")";
+                break;
+            case finalizado:
+                estado = "Finalizado (" + item.getPedido().getGestor().getNombreCompleto() + ")";
+                break;
         }
                 
         String itemVal = "<html>" + item.getProducto().getNombre() + " ($ "

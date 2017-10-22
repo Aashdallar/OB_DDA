@@ -37,9 +37,8 @@ public class Gestor extends Usuario {
         
     public void trabajarPedido(Pedido pedido) {
         this.pedidos.add(pedido);
-        this.unidad.procesarPedido(pedido);
         pedido.asignarGestor(this);
-        pedido.procesar();
+        this.unidad.procesarPedido(pedido);
     }
 
     public void finalizarPedido(Pedido pedido) {

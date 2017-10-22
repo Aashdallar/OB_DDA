@@ -12,7 +12,6 @@ package modelo;
 public class Pedido {
 
     private Item item;
-    private boolean finalizado;
     private Gestor gestor;
 
     // <editor-fold defaultstate="collapsed" desc="Gets y Sets">    
@@ -26,10 +25,6 @@ public class Pedido {
 
     public Item getItem() {
         return item;
-    }
-
-    public boolean estaFinalizado() {
-        return finalizado;
     }
 
     public Gestor getGestor() {
@@ -59,7 +54,6 @@ public class Pedido {
     }
 
     public void finalizar() {
-        finalizado = true;
         item.setEstado(Item.Estado.finalizado);
         item.getServicio().getMesa().getMozo().avisar(Mozo.eventos.pedido);
     }

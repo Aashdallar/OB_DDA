@@ -49,18 +49,14 @@ public class UnidadProcesadora extends Observable{
         this.pedidosEnProceso.add(pedido);
     }
     public void removerPedidoEnProceso(Pedido pedido) {
-        if(pedido.estaFinalizado()){
-            this.pedidosEnProceso.remove(pedido);
-        }
+        this.pedidosEnProceso.remove(pedido);
     }
     public ArrayList<Pedido> getPedidosPendientes() {
         return pedidosPendientes;
     }
     public void agregarPedidoPendiente(Pedido pedido) {
-        if(!pedido.estaFinalizado()){
-            this.pedidosPendientes.add(pedido);
-            avisar(eventos.pedidos);
-        }        
+        this.pedidosPendientes.add(pedido);
+        avisar(eventos.pedidos);        
     }
     public void removerPedidoPendiente(Pedido pedido) {
         this.pedidosPendientes.remove(pedido);
