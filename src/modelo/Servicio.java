@@ -63,5 +63,9 @@ public class Servicio {
     public String toString() {
         return "Servicio: " + mesa.toString();
     }  
+
+    public void actualizarMesa() {
+        mesa.avisarMozo();
+    }
     
 }

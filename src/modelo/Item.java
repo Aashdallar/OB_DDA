@@ -28,6 +28,10 @@ public class Item {
             throw new ModeloException("Sin Stock");
     }
 
+    public void actualizarServicio() {
+        servicio.actualizarMesa();
+    }
+
    
     public enum Estado {pendiente,enProceso,finalizado;}
 

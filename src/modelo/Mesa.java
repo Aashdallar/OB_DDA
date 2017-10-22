@@ -111,4 +111,8 @@ public class Mesa {
     public String toString() {
         return "Mesa:" + nro + ", " + mozo;
     }
+
+    public void avisarMozo() {
+        mozo.avisar(Mozo.eventos.pedido);
+    }
 }

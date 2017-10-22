@@ -50,12 +50,12 @@ public class Pedido {
 
     public void procesar() {
         item.setEstado(Item.Estado.enProceso);
-        item.getServicio().getMesa().getMozo().avisar(Mozo.eventos.pedido);
+        item.actualizarServicio();
     }
 
     public void finalizar() {
         item.setEstado(Item.Estado.finalizado);
-        item.getServicio().getMesa().getMozo().avisar(Mozo.eventos.pedido);
+        item.actualizarServicio();
     }
 
 }
