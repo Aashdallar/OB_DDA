@@ -39,11 +39,11 @@ public class Transferencia {
         return mesa != null && mozoDestino != null;
     }
 
-    void notificar() {
+    public void notificar() {
         mozoDestino.avisar(Mozo.eventos.transferenciaSolicitadaTo);
     }
 
-    void transferenciaRechazada() {
+    public void transferenciaRechazada() {
         mesa.transferenciaRechazada(mozoDestino);
     }
     
