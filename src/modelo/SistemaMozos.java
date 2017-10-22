@@ -82,7 +82,7 @@ public class SistemaMozos {
         return mozo != null && mozosActivos.contains(mozo);
     }
 
-    void desloguearMozo(Mozo mozo) throws ModeloException {
+    public void desloguearMozo(Mozo mozo) throws ModeloException {
         if(mozo.tieneMesasAbiertas())
             throw new ModeloException("No es posible salir del sistema teniendo mesas abiertas\nCierre o transfieralas antes de salir");
         if(mozosActivos.contains(mozo))
