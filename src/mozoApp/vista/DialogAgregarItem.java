@@ -17,14 +17,12 @@ import modelo.UnidadProcesadora;
 public class DialogAgregarItem extends javax.swing.JDialog {
     
     private PanelPrincipalMozo panelPrincipal;
-    private Servicio servicio;
 
-    public DialogAgregarItem(java.awt.Frame parent, boolean modal, PanelPrincipalMozo pPrincipal, Servicio servicio, ArrayList<Producto> productos) {
+    public DialogAgregarItem(java.awt.Frame parent, boolean modal, PanelPrincipalMozo pPrincipal, ArrayList<Producto> productos) {
         super(parent, modal);
         initComponents();
         cargarComboBox(productos);
         this.panelPrincipal = pPrincipal;
-        this.servicio = servicio;
         setTitle("Agregar un item al servicio");
         
     }
@@ -51,11 +49,11 @@ public class DialogAgregarItem extends javax.swing.JDialog {
             item.setCantidad(Integer.parseInt(txtCantidad.getText()));
             if(txtDescripcion.getText() != null) item.setDescripcion(txtDescripcion.getText());
             item.setProducto((Producto)cmbProductos.getSelectedItem());
-            panelPrincipal.agregarItemALaMesa(servicio, item);
+            panelPrincipal.agregarItemALaMesa(item);
             dispose();
         }
         catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "La cantidad debe de ser un número mayor a 0 (cero)");
+            JOptionPane.showMessageDialog(this, "La canitdad ingresada no es un número");
         }
         catch (ClassCastException ex){
             JOptionPane.showMessageDialog(this, "Seleccione un producto válido");

@@ -18,44 +18,34 @@ import mozoApp.controlador.MainVistaMozo;
 public class PanelPrincipalMozo extends JPanel implements ActionListener, MainVistaMozo {
     
     private MainControladorMozo controlador;
-    private Mozo mozo;
-    private Mesa mesaSeleccionada;
     
     public PanelPrincipalMozo(Mozo mozo) {
-        this.mozo = mozo;
         setLayout(new GridLayout(1,2));
         controlador = new MainControladorMozo(this, mozo);
     }
     
-    
     @Override
     public void actionPerformed(ActionEvent e) {
-        mesaSeleccionada = ((BotonMesa)e.getSource()).getMesa();
-        controlador.mostrarMesas(mesaSeleccionada);
+        Mesa mesa = ((BotonMesa)e.getSource()).getMesa();
+        controlador.seleccionarMesa(mesa);
     }
     
     @Override
-    public void mostrarMesas(Mesa mesa) {
-        if(mesaSeleccionada == null || (mesa != null && !mesaSeleccionada.equals(mesa))){
-            mesaSeleccionada = mesa;
-        }
-        if(mesaSeleccionada != null && !mozo.tiene(mesaSeleccionada)){
-            mesaSeleccionada = null;
-        }
+    public void mostrarMesas(Mesa mesa, Mozo mozo) {
         
-        if(mesaSeleccionada == null){
+        if(mesa == null){
             if(mozo.tieneMesas()) {
-                cargarPanel(new PanelListaMesas(this, mozo.getMesas()), new PanelSinMesaSeleccionada());
+                cargarPanel(new PanelListaMesas(this, mozo.getMesas()), new PanelSinMesaSeleccionada(), mozo);
             } else {
-                cargarPanel(new PanelListaMesas(this, new ArrayList()), new PanelMozoSinMesas(mozo.getNombreCompleto()));
+                cargarPanel(new PanelListaMesas(this, new ArrayList()), new PanelMozoSinMesas(mozo.getNombreCompleto()), mozo);
             }
         } else {
             
-            if(mozo.getMesas().contains(mesaSeleccionada)){
-                if(mesaSeleccionada.estaAbierta()){
-                    cargarPanel(new PanelListaMesas(this, mozo.getMesas()), new PanelMesaAbierta(this, mesaSeleccionada));
+            if(mozo.getMesas().contains(mesa)){
+                if(mesa.estaAbierta()){
+                    cargarPanel(new PanelListaMesas(this, mozo.getMesas()), new PanelMesaAbierta(this, mesa), mozo);
                 } else {
-                    cargarPanel(new PanelListaMesas(this, mozo.getMesas()), new PanelMesaCerrada(this, mesaSeleccionada));
+                    cargarPanel(new PanelListaMesas(this, mozo.getMesas()), new PanelMesaCerrada(this, mesa), mozo);
                 }
             }
         }
@@ -67,8 +57,8 @@ public class PanelPrincipalMozo extends JPanel implements ActionListener, MainVi
     }
     
     @Override
-    public void mostrarTransferirMesa(ArrayList<Mozo> mozosLogueados) {
-        new DialogTransferirMesa(null, true, mesaSeleccionada, mozosLogueados, this);
+    public void mostrarTransferirMesa(ArrayList<Mozo> mozosLogueados, Mesa mesa) {
+        new DialogTransferirMesa(null, true, mesa, mozosLogueados, this);
     }
 
     @Override
@@ -76,7 +66,7 @@ public class PanelPrincipalMozo extends JPanel implements ActionListener, MainVi
         new DialogTransferenciaSolicitar(null, true, transferencia, this);
     }
     
-    private void cargarPanel(PanelListaMesas pMesas, JPanel pEstatico){
+    private void cargarPanel(PanelListaMesas pMesas, JPanel pEstatico, Mozo mozo){
         removeAll();
         add(pMesas);
         add(pEstatico);
@@ -85,7 +75,7 @@ public class PanelPrincipalMozo extends JPanel implements ActionListener, MainVi
     }
     
     public void abrirMesa() {
-        controlador.abrirMesa(mesaSeleccionada);
+        controlador.abrirMesa();
     }
     
     public boolean desloguearMozo(){
@@ -93,25 +83,25 @@ public class PanelPrincipalMozo extends JPanel implements ActionListener, MainVi
     }
     
     public void AgregarItem() {
-        JDialog agregarItem = new DialogAgregarItem(null, false, this, mesaSeleccionada.getServicio(), controlador.getProductosConStock());
+        JDialog agregarItem = new DialogAgregarItem(null, false, this, controlador.getProductosConStock());
         agregarItem.setLocationRelativeTo(this);
         agregarItem.setVisible(true);
     }
 
     public void CerrarMesa() {
-        controlador.cerrarMesa(mesaSeleccionada);
+        controlador.cerrarMesa();
     }
     
-    void agregarItemALaMesa(Servicio servicio, Item item) {
-        controlador.agregarItemALaMesa(servicio, item);
+    void agregarItemALaMesa(Item item) {
+        controlador.agregarItemALaMesa(item);
     }
 
     public void iniciarTransferirMesa() {
         controlador.iniciarTransferirMesa();
     }
     
-    public void transferirMesa(Mozo mozoDestino, Mesa mesa){
-        controlador.transferirMesa(mozoDestino, mesa);
+    public void transferirMesa(Mozo mozoDestino){
+        controlador.transferirMesa(mozoDestino);
     }
     
     void aceptarTransferencia() {

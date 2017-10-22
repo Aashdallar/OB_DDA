@@ -20,17 +20,15 @@ import modelo.Servicio;
  */
 public class PanelMesaAbierta extends javax.swing.JPanel {
 
-    private Mesa mesa;
     private PanelPrincipalMozo panelPrincipal;
     
     public PanelMesaAbierta(PanelPrincipalMozo pPrincipal, Mesa mesa) {
         initComponents();
-        this.mesa = mesa;
         this.panelPrincipal = pPrincipal;
-        mostrar();
+        mostrar(mesa);
     }
     
-    public void mostrar(){
+    public void mostrar(Mesa mesa){
         lbl_mesaSeleccionadaValor.setText(mesa.getNro() + "");
         if(mesa.getTransferencia() == null){
             btnTransferirMesa.setEnabled(true);
@@ -58,7 +56,7 @@ public class PanelMesaAbierta extends javax.swing.JPanel {
                 tableModel.insertRow(i, createTableRow(servicio.getItems().get(i)));
                 table.setRowHeight(40);
             }
-        lbl_servicioTotalValue.setText("$ " + mesa.getServicio().montoTotal());
+        lbl_servicioTotalValue.setText("$ " + servicio.montoTotal());
         
         table.setModel(tableModel);
         table.getColumnModel().getColumn(0).setPreferredWidth(5);

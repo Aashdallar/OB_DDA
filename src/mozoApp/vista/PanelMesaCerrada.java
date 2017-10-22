@@ -14,14 +14,12 @@ import modelo.Mesa;
 public class PanelMesaCerrada extends javax.swing.JPanel {
 
     private PanelPrincipalMozo panelPrincipal;
-    private Mesa mesa;
     
     public PanelMesaCerrada(PanelPrincipalMozo pPrincipal, Mesa mesa) {
         initComponents();
         this.panelPrincipal = pPrincipal;
-        this.mesa = mesa;
         lblMesa.setText("La mesa " + mesa.getNro() + " está cerrada,");
-        if(this.mesa.getTransferencia() == null) {
+        if(mesa.getTransferencia() == null) {
             btn_TransferirMesa.setEnabled(true);
         } else {
             btn_TransferirMesa.setEnabled(false);

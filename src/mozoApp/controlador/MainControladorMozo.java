@@ -21,16 +21,18 @@ public class MainControladorMozo implements Observer {
     private MainVistaMozo vista;
     private Sistema sistema = Sistema.getInstancia();
     private Mozo mozo;
+    private Mesa mesaSeleccionada;
 
     public MainControladorMozo(MainVistaMozo vista, Mozo mozo) {
         this.vista = vista;
         this.mozo = mozo;
         this.mozo.addObserver(this);
-        mostrarMesas(null);
+        vista.mostrarMesas(null, this.mozo);
     }
     
-    public void mostrarMesas(Mesa mesa){
-        vista.mostrarMesas(mesa);
+    public void seleccionarMesa(Mesa mesa){
+        mesaSeleccionada = mesa;
+        vista.mostrarMesas(mesa, mozo);
     }
     
     public boolean desloguearMozo() {
@@ -43,15 +45,15 @@ public class MainControladorMozo implements Observer {
         }
     }
 
-    public void abrirMesa(Mesa mesa) {
-        mesa.abrir();
-        vista.mostrarMesas(mesa);
+    public void abrirMesa() {
+        mesaSeleccionada.abrir();
+        vista.mostrarMesas(mesaSeleccionada, mozo);
     }
 
-    public void cerrarMesa(Mesa mesa) {
+    public void cerrarMesa() {
         try {
-            mesa.cerrar();
-            vista.mostrarMesas(mesa);
+            mesaSeleccionada.cerrar();
+            vista.mostrarMesas(mesaSeleccionada, mozo);
         } catch (ModeloException ex) {
             vista.mostrarAlerta(ex.getMessage());
         }
@@ -61,22 +63,22 @@ public class MainControladorMozo implements Observer {
         return sistema.getProductosConStock();
     }
 
-    public void agregarItemALaMesa(Servicio servicio, Item item) {
+    public void agregarItemALaMesa(Item item) {
         try {
-            servicio.agregarItem(item);
-            vista.mostrarMesas(servicio.getMesa());
+            mesaSeleccionada.getServicio().agregarItem(item);
+            vista.mostrarMesas(mesaSeleccionada, mozo);
         } catch (ModeloException ex) {
             vista.mostrarAlerta(ex.getMessage());
         }
     }
     
     public void iniciarTransferirMesa(){
-        vista.mostrarTransferirMesa(sistema.getMozosLogueados());
+        vista.mostrarTransferirMesa(sistema.getMozosLogueados(), mesaSeleccionada);
     }
 
-    public void transferirMesa(Mozo mozoDestino, Mesa mesa) {
+    public void transferirMesa(Mozo mozoDestino) {
         Transferencia transferencia = new Transferencia();
-        transferencia.setMesa(mesa);
+        transferencia.setMesa(mesaSeleccionada);
         transferencia.setMozoDestino(mozoDestino);
         mozo.solicitarTransferencia(transferencia);
     }
@@ -84,28 +86,29 @@ public class MainControladorMozo implements Observer {
     @Override
     public void update(Observable origen, Object evento) {
         if(evento.equals(Mozo.eventos.transferenciaSolicitadaFrom)){
-            vista.mostrarMesas(mozo.getTransferencia().getMesa());
+            vista.mostrarMesas(mozo.getTransferencia().getMesa(), mozo);
         } else if(evento.equals(Mozo.eventos.transferenciaSolicitadaTo)){
             vista.mostrarTransferenciaSolicitud(mozo.getTransferencia());
         } else if(evento.equals(Mozo.eventos.transferenciaRechazada)){
-            vista.mostrarMesas(null);
+            vista.mostrarMesas(mesaSeleccionada, mozo);
             vista.mostrarAlerta("La solicitud de transferecia fue rechazada.");
         } else if(evento.equals(Mozo.eventos.transferenciaAceptada)){
-            vista.mostrarMesas(null);
+            mesaSeleccionada = null;
+            vista.mostrarMesas(mesaSeleccionada, mozo);
             vista.mostrarAlerta("La solicitud de transferecia fue aceptada.");
         } else if(evento.equals(Mozo.eventos.pedido)){
-            vista.mostrarMesas(null);
+            vista.mostrarMesas(mesaSeleccionada, mozo);
         }
     }
 
     public void transferenciaAceptar() {
         mozo.aceptarTransferencia();
-        vista.mostrarMesas(null);
+        vista.mostrarMesas(mesaSeleccionada, mozo);
     }
 
     public void transferenciaRechazar() {
         mozo.rechazarTransferencia();
-        vista.mostrarMesas(null);
+        vista.mostrarMesas(mesaSeleccionada, mozo);
     }
     
 }

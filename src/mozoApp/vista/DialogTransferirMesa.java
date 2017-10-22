@@ -18,13 +18,11 @@ import modelo.Mozo;
 public class DialogTransferirMesa extends javax.swing.JDialog {
     
     private PanelPrincipalMozo panelPrincipal;
-    private Mesa mesa;
 
     public DialogTransferirMesa(java.awt.Frame parent, boolean modal, Mesa mesa, ArrayList<Mozo> mozosLogueados, PanelPrincipalMozo pPrincipal) {
         super(parent, modal);
         initComponents();
         this.panelPrincipal = pPrincipal;
-        this.mesa = mesa;
         setTitle("Transferir mesa");
         cargarMozosLista(mesa, mozosLogueados);
         setLocationRelativeTo(panelPrincipal);
@@ -48,7 +46,7 @@ public class DialogTransferirMesa extends javax.swing.JDialog {
             Mozo mozo = (Mozo)lstMozos.getSelectedValue();
             if(mozo != null){
                 dispose();
-                panelPrincipal.transferirMesa(mozo, mesa);
+                panelPrincipal.transferirMesa(mozo);
             } else {
                 mozoSeleccionadoError();
             }

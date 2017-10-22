@@ -7,9 +7,9 @@ import modelo.Transferencia;
 
 public interface MainVistaMozo {
     
-    public void mostrarMesas(Mesa mesa);
+    public void mostrarMesas(Mesa mesa, Mozo mozo);
     public void mostrarAlerta(String mensaje);
-    public void mostrarTransferirMesa(ArrayList<Mozo> mozosLogueados);
+    public void mostrarTransferirMesa(ArrayList<Mozo> mozosLogueados, Mesa mesa);
     public void mostrarTransferenciaSolicitud(Transferencia transferencia);
     
 }
