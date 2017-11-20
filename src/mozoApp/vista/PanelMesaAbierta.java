@@ -92,18 +92,27 @@ public class PanelMesaAbierta extends javax.swing.JPanel {
         return new String[] { "" + item.getCantidad(), itemVal, "$ " + item.getMonto() };
     }
     
+    private void agregarCliente() {
+        new DialogAgregarCliente(null, true, panelPrincipal);
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         lbl_mesaSeleccionadaValor = new javax.swing.JLabel();
-        lbl_servicioTotalLabel = new javax.swing.JLabel();
+        lbl_clienteBeneficioLabel = new javax.swing.JLabel();
         lbl_mesaSeleccionadaLabel = new javax.swing.JLabel();
         lbl_servicioTotalValue = new javax.swing.JLabel();
         tblPanelSpace = new javax.swing.JPanel();
         btnCerrarMesa = new javax.swing.JButton();
         btnTransferirMesa = new javax.swing.JButton();
         btnAgregarItem = new javax.swing.JButton();
+        btnAgregarCliente = new javax.swing.JButton();
+        lbl_servicioTotalLabel = new javax.swing.JLabel();
+        lbl_clienteNombreValue = new javax.swing.JLabel();
+        lbl_clienteNombreLabel2 = new javax.swing.JLabel();
+        lbl_clienteBeneficioValue = new javax.swing.JLabel();
 
         setLayout(null);
 
@@ -112,10 +121,10 @@ public class PanelMesaAbierta extends javax.swing.JPanel {
         add(lbl_mesaSeleccionadaValor);
         lbl_mesaSeleccionadaValor.setBounds(230, 20, 60, 30);
 
-        lbl_servicioTotalLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        lbl_servicioTotalLabel.setText("Total:");
-        add(lbl_servicioTotalLabel);
-        lbl_servicioTotalLabel.setBounds(180, 300, 70, 30);
+        lbl_clienteBeneficioLabel.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lbl_clienteBeneficioLabel.setText("Beneficio:");
+        add(lbl_clienteBeneficioLabel);
+        lbl_clienteBeneficioLabel.setBounds(20, 440, 80, 20);
 
         lbl_mesaSeleccionadaLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         lbl_mesaSeleccionadaLabel.setText("Mesa Seleccionada:");
@@ -138,7 +147,7 @@ public class PanelMesaAbierta extends javax.swing.JPanel {
             }
         });
         add(btnCerrarMesa);
-        btnCerrarMesa.setBounds(30, 480, 160, 50);
+        btnCerrarMesa.setBounds(30, 530, 160, 50);
 
         btnTransferirMesa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnTransferirMesa.setText("Transferir");
@@ -148,7 +157,7 @@ public class PanelMesaAbierta extends javax.swing.JPanel {
             }
         });
         add(btnTransferirMesa);
-        btnTransferirMesa.setBounds(210, 480, 160, 50);
+        btnTransferirMesa.setBounds(210, 530, 160, 50);
 
         btnAgregarItem.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnAgregarItem.setText("(+) Agregar Item");
@@ -158,7 +167,37 @@ public class PanelMesaAbierta extends javax.swing.JPanel {
             }
         });
         add(btnAgregarItem);
-        btnAgregarItem.setBounds(120, 350, 160, 50);
+        btnAgregarItem.setBounds(120, 340, 160, 50);
+
+        btnAgregarCliente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnAgregarCliente.setText("Agregar Cliente");
+        btnAgregarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarClienteActionPerformed(evt);
+            }
+        });
+        add(btnAgregarCliente);
+        btnAgregarCliente.setBounds(120, 470, 160, 40);
+
+        lbl_servicioTotalLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        lbl_servicioTotalLabel.setText("Total:");
+        add(lbl_servicioTotalLabel);
+        lbl_servicioTotalLabel.setBounds(180, 300, 70, 30);
+
+        lbl_clienteNombreValue.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lbl_clienteNombreValue.setText("No hay cliente agregado");
+        add(lbl_clienteNombreValue);
+        lbl_clienteNombreValue.setBounds(100, 420, 280, 20);
+
+        lbl_clienteNombreLabel2.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lbl_clienteNombreLabel2.setText("Cliente:");
+        add(lbl_clienteNombreLabel2);
+        lbl_clienteNombreLabel2.setBounds(20, 420, 80, 20);
+
+        lbl_clienteBeneficioValue.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lbl_clienteBeneficioValue.setText("Sin beneficio");
+        add(lbl_clienteBeneficioValue);
+        lbl_clienteBeneficioValue.setBounds(100, 440, 280, 20);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarItemActionPerformed
@@ -176,11 +215,20 @@ public class PanelMesaAbierta extends javax.swing.JPanel {
         panelPrincipal.iniciarTransferirMesa();
     }//GEN-LAST:event_btnTransferirMesaActionPerformed
 
+    private void btnAgregarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarClienteActionPerformed
+        agregarCliente();
+    }//GEN-LAST:event_btnAgregarClienteActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregarCliente;
     private javax.swing.JButton btnAgregarItem;
     private javax.swing.JButton btnCerrarMesa;
     private javax.swing.JButton btnTransferirMesa;
+    private javax.swing.JLabel lbl_clienteBeneficioLabel;
+    private javax.swing.JLabel lbl_clienteBeneficioValue;
+    private javax.swing.JLabel lbl_clienteNombreLabel2;
+    private javax.swing.JLabel lbl_clienteNombreValue;
     private javax.swing.JLabel lbl_mesaSeleccionadaLabel;
     private javax.swing.JLabel lbl_mesaSeleccionadaValor;
     private javax.swing.JLabel lbl_servicioTotalLabel;

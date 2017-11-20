@@ -11,6 +11,7 @@ package modelo;
  */
 public class Producto {
     
+    private int oid;
     private String codigo;
     private String nombre;
     private double precioUnitario;
@@ -27,6 +28,13 @@ public class Producto {
         this.precioUnitario = precioUnitario;
         this.stock = stock;
         setUnidad(unidad);
+    }
+
+    public int getOid() {
+        return oid;
+    }
+    public void setOid(int oid) {
+        this.oid = oid;
     }
 
     public String getCodigo() {

@@ -17,7 +17,8 @@ public class Mesa {
     private boolean abierta;
     private Mozo mozo;
     private Servicio servicio;   
-    private Transferencia transferencia;  
+    private Transferencia transferencia;
+    private Cliente cliente;
     
     // <editor-fold defaultstate="collapsed" desc="Gets y Sets y Agregar-Remover Items">    
     public int getNro(){
@@ -54,6 +55,9 @@ public class Mesa {
     }       
     public void removerItemAlServicio(Item item){
         servicio.removerItem(item);
+    }
+    public Cliente getCliente(){
+        return this.cliente;
     }
     // </editor-fold>
     
@@ -114,5 +118,10 @@ public class Mesa {
 
     public void avisarMozo() {
         mozo.avisar(Mozo.eventos.pedido);
+    }
+
+    public boolean agregarCliente(int idCliente) {
+        cliente = new Cliente(idCliente);
+        return cliente != null;
     }
 }

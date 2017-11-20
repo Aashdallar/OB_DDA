@@ -112,4 +112,8 @@ public class MainControladorMozo implements Observer {
         vista.mostrarMesas(mesaSeleccionada, mozo);
     }
     
+    public boolean agregarClienteALaMesa(int idCliente){
+        return mesaSeleccionada.agregarCliente(idCliente);
+    }
+    
 }

@@ -112,4 +112,8 @@ public class PanelPrincipalMozo extends JPanel implements ActionListener, MainVi
         controlador.transferenciaRechazar();
     }
 
+    boolean agregarCliente(int idCliente) {
+        return controlador.agregarClienteALaMesa(idCliente);
+    }
+
 }

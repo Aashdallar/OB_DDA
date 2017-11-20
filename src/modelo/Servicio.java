@@ -13,11 +13,19 @@ import java.util.ArrayList;
  */
 public class Servicio {
    
+    private int oid;
     private ArrayList<Item> items;
     private Mesa mesa;
     
     // <editor-fold defaultstate="collapsed" desc="Agregar-Remover Items">
-    public Servicio(){
+    public void setOid(int oid) {
+        this.oid = oid;
+    }
+    public int getOid(){
+        return oid;
+    }
+
+    public Servicio() {
         this.items = new ArrayList();
     }
 
