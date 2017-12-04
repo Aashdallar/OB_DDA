@@ -3,6 +3,8 @@ package mozoApp.controlador;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import modelo.Item;
 import modelo.Mesa;
 import modelo.ModeloException;
@@ -112,8 +114,13 @@ public class MainControladorMozo implements Observer {
         vista.mostrarMesas(mesaSeleccionada, mozo);
     }
     
-    public boolean agregarClienteALaMesa(int idCliente){
-        return mesaSeleccionada.agregarCliente(idCliente);
+    public void agregarClienteALaMesa(int idCliente){
+        try {
+            mesaSeleccionada.agregarCliente(idCliente);
+            vista.mostrarMesas(mesaSeleccionada, mozo);
+        } catch (ModeloException ex) {
+            vista.mostrarAlerta(ex.getMessage());
+        }
     }
     
 }

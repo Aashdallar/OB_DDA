@@ -5,6 +5,10 @@
  */
 package modelo;
 
+import java.util.ArrayList;
+import modelo.Mapeador.MapeadorCliente;
+import persistencia.Persistencia;
+
 /**
  *
  * @author SG0208533
@@ -14,20 +18,9 @@ public class Cliente {
     private int id;
     private String nombre;
     private String email;
-    private TipoDeCliente tipo;
-
-    public enum TipoDeCliente {
-        Comun,          // $0 por café
-        Preferencial,   // $0 por agua mineral + 5% de descuento si Total > $2000
-        DeLaCasa,       // $500 descuento sobre el total
-        SinBeneficio
-    }
+    private TipoCliente tipo;
 
     public Cliente() {
-    }
-
-    public Cliente(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public int getOid() {
@@ -54,30 +47,51 @@ public class Cliente {
     public void setEmail(String email) {
         this.email = email;
     }
-    public TipoDeCliente getTipo() {
+    public TipoCliente getTipo() {
         return tipo;
     }
-    public void setTipo(TipoDeCliente tipo) {
+    public void setTipo(TipoCliente tipo) {
         this.tipo = tipo;
     }
     public void setTipo(String str){
         switch(str){
             case "COM":
-                this.tipo = tipo.Comun;
+                this.tipo = new ClienteComun();
                 break;
             case "PRF":
-                this.tipo = tipo.Preferencial;
+                this.tipo = new ClientePreferencial();
                 break;
             case "DLC":
-                this.tipo = tipo.DeLaCasa;
+                this.tipo = new ClienteDeLaCasa();
                 break;
             default:
-                this.tipo = tipo.SinBeneficio;
+                this.tipo = null;
                 break;
         }
     }
     
-    
-    
-    
+    public static Cliente getClienteFromDB(int clienteId){
+        Persistencia p = Persistencia.getInstancia();
+        MapeadorCliente mc = new MapeadorCliente();
+        ArrayList arr = p.buscar(mc, "idCliente = " + clienteId);
+        if(arr.size() > 0){
+            return (Cliente) arr.get(0);
+        } else {
+            return null;
+        }
+    }
+
+    public String getBeneficioTexto() {
+        if(tipo == null){
+            return "Sin Beneficio";
+        }
+        return tipo.getBeneficioTexto();
+    }
+
+    public double getDescuentoDeCliente(ArrayList<Item> items) {
+        if(tipo == null){
+            return 0;
+        }
+        return tipo.getBeneficio(items);
+    }
 }

@@ -138,18 +138,21 @@ public class Sistema {
         u1.setNombre("Cocina");
         u2.setNombre("Bar");
         
-        Producto p01 = new Producto("c001","Pescado a la plancha",260.00,15,u1);
-        Producto p02 = new Producto("c002","Milanesa napolitana",360.00,25,u1);
-        Producto p03 = new Producto("c003","Ensalada de la casa",220.00,8,u1);
-        Producto p04 = new Producto("c004","Empanadas variadas (1un)",50.00,45,u1);
-        Producto p05 = new Producto("c005","Tallarines Lomein",300.00,40,u1);
-        Producto p06 = new Producto("c006","Arrollado de pollo",350.00,0,u1);
-        Producto p07 = new Producto("b001","Refresco 1Lt",120.00,19,u2);
-        Producto p08 = new Producto("b002","Agua 500ml",60.00,15,u2);
-        Producto p09 = new Producto("b003","Cerveza 1Lt",180.00,1,u2);
-        
         sisG.agregarUnidadProcesadora(u1);
         sisG.agregarUnidadProcesadora(u2);
+        
+        Producto.loadProductosFromBD();
+        
+//        Producto p01 = new Producto("c001","Pescado a la plancha",260.00,15,u1);
+//        Producto p02 = new Producto("c002","Milanesa napolitana",360.00,25,u1);
+//        Producto p03 = new Producto("c003","Ensalada de la casa",220.00,8,u1);
+//        Producto p04 = new Producto("c004","Empanadas variadas (1un)",50.00,45,u1);
+//        Producto p05 = new Producto("c005","Tallarines Lomein",300.00,40,u1);
+//        Producto p06 = new Producto("c006","Arrollado de pollo",350.00,0,u1);
+//        Producto p07 = new Producto("b001","Refresco 1Lt",120.00,19,u2);
+//        Producto p08 = new Producto("b002","Agua 500ml",60.00,15,u2);
+//        Producto p09 = new Producto("b003","Cerveza 1Lt",180.00,1,u2);
+//        Producto p10 = new Producto("b004","Café",35.00,100,u2);
         
      }
 

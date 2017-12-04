@@ -12,7 +12,6 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import modelo.Item;
 import modelo.Mesa;
-import modelo.Servicio;
 
 /**
  *
@@ -28,17 +27,17 @@ public class PanelMesaAbierta extends javax.swing.JPanel {
         mostrar(mesa);
     }
     
-    public void mostrar(Mesa mesa){
+    private void mostrar(Mesa mesa){
         lbl_mesaSeleccionadaValor.setText(mesa.getNro() + "");
         if(mesa.getTransferencia() == null){
             btnTransferirMesa.setEnabled(true);
         } else {
             btnTransferirMesa.setEnabled(false);
         }
-        cargarServicio(mesa.getServicio());
+        cargarServicio(mesa);
     }
     
-    private void cargarServicio(Servicio servicio){
+    private void cargarServicio(Mesa mesa){
         DefaultTableModel tableModel = new DefaultTableModel() {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -50,25 +49,36 @@ public class PanelMesaAbierta extends javax.swing.JPanel {
         tableModel.setColumnIdentifiers(new Object[] {
                 "Cnt", "Item", "Precio" });
         
-        if(servicio != null){
-            for (int i = 0; i < servicio.getItems().size(); i++) {
+        if(mesa.getServicio() != null){
+            for (int i = 0; i < mesa.getServicio().getItems().size(); i++) {
                 //Item = servicio.getItems().get(i);
-                tableModel.insertRow(i, createTableRow(servicio.getItems().get(i)));
+                tableModel.insertRow(i, createTableRow(mesa.getServicio().getItems().get(i)));
                 table.setRowHeight(40);
             }
-        lbl_servicioTotalValue.setText("$ " + servicio.montoTotal());
-        
-        table.setModel(tableModel);
-        table.getColumnModel().getColumn(0).setPreferredWidth(5);
-        table.getColumnModel().getColumn(1).setPreferredWidth(220);
-        table.getColumnModel().getColumn(2).setPreferredWidth(10);
-        JScrollPane pane = new JScrollPane(table);
-        pane.setPreferredSize(new Dimension(380, 230));
-        tblPanelSpace.removeAll();
-        tblPanelSpace.add(pane);
-        tblPanelSpace.validate();
+            table.setModel(tableModel);
+            table.getColumnModel().getColumn(0).setPreferredWidth(5);
+            table.getColumnModel().getColumn(1).setPreferredWidth(220);
+            table.getColumnModel().getColumn(2).setPreferredWidth(10);
+            JScrollPane pane = new JScrollPane(table);
+            pane.setPreferredSize(new Dimension(380, 230));
+            tblPanelSpace.removeAll();
+            tblPanelSpace.add(pane);
+            tblPanelSpace.validate();
+            
+            cargarEtiquetas(mesa);
         }
     }
+    
+    private void cargarEtiquetas(Mesa mesa) {
+        mesa.getServicio().calcularMontos();
+        lbl_servicioTotalValue.setText("$ " + mesa.getServicio().getMontoConDescuento());
+        lbl_clienteDescuentoPorBeneficio_Value.setText("$ " + mesa.getServicio().getMontoDeDescuento());
+        lbl_clienteTotalSinBeneficio_Value.setText("$ " + mesa.getServicio().getMontoTotal());
+        
+        lbl_clienteNombre_Value.setText(mesa.getClienteNombre());
+        lbl_clienteBeneficioDescripcion_Value.setText(mesa.getClienteBeneficioTexto());
+    }
+    
     private String[] createTableRow(Item item){
         // Nombre ($ 00)
         // Estado (Gestor)
@@ -93,7 +103,7 @@ public class PanelMesaAbierta extends javax.swing.JPanel {
     }
     
     private void agregarCliente() {
-        new DialogAgregarCliente(null, true, panelPrincipal);
+        new DialogAgregarClienteAMesa(null, true, panelPrincipal);
     }
     
     @SuppressWarnings("unchecked")
@@ -101,7 +111,7 @@ public class PanelMesaAbierta extends javax.swing.JPanel {
     private void initComponents() {
 
         lbl_mesaSeleccionadaValor = new javax.swing.JLabel();
-        lbl_clienteBeneficioLabel = new javax.swing.JLabel();
+        lbl_clienteBeneficioDescripcion_Label = new javax.swing.JLabel();
         lbl_mesaSeleccionadaLabel = new javax.swing.JLabel();
         lbl_servicioTotalValue = new javax.swing.JLabel();
         tblPanelSpace = new javax.swing.JPanel();
@@ -110,9 +120,13 @@ public class PanelMesaAbierta extends javax.swing.JPanel {
         btnAgregarItem = new javax.swing.JButton();
         btnAgregarCliente = new javax.swing.JButton();
         lbl_servicioTotalLabel = new javax.swing.JLabel();
-        lbl_clienteNombreValue = new javax.swing.JLabel();
-        lbl_clienteNombreLabel2 = new javax.swing.JLabel();
-        lbl_clienteBeneficioValue = new javax.swing.JLabel();
+        lbl_clienteNombre_Value = new javax.swing.JLabel();
+        lbl_clienteTotalSinBeneficio_Label = new javax.swing.JLabel();
+        lbl_clienteBeneficioDescripcion_Value = new javax.swing.JLabel();
+        lbl_clienteNombre_Label = new javax.swing.JLabel();
+        lbl_clienteTotalSinBeneficio_Value = new javax.swing.JLabel();
+        lbl_clienteDescuentoPorBeneficio_Label = new javax.swing.JLabel();
+        lbl_clienteDescuentoPorBeneficio_Value = new javax.swing.JLabel();
 
         setLayout(null);
 
@@ -121,10 +135,10 @@ public class PanelMesaAbierta extends javax.swing.JPanel {
         add(lbl_mesaSeleccionadaValor);
         lbl_mesaSeleccionadaValor.setBounds(230, 20, 60, 30);
 
-        lbl_clienteBeneficioLabel.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        lbl_clienteBeneficioLabel.setText("Beneficio:");
-        add(lbl_clienteBeneficioLabel);
-        lbl_clienteBeneficioLabel.setBounds(20, 440, 80, 20);
+        lbl_clienteBeneficioDescripcion_Label.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lbl_clienteBeneficioDescripcion_Label.setText("Beneficio:");
+        add(lbl_clienteBeneficioDescripcion_Label);
+        lbl_clienteBeneficioDescripcion_Label.setBounds(20, 460, 80, 20);
 
         lbl_mesaSeleccionadaLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         lbl_mesaSeleccionadaLabel.setText("Mesa Seleccionada:");
@@ -147,7 +161,7 @@ public class PanelMesaAbierta extends javax.swing.JPanel {
             }
         });
         add(btnCerrarMesa);
-        btnCerrarMesa.setBounds(30, 530, 160, 50);
+        btnCerrarMesa.setBounds(30, 540, 160, 50);
 
         btnTransferirMesa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnTransferirMesa.setText("Transferir");
@@ -157,7 +171,7 @@ public class PanelMesaAbierta extends javax.swing.JPanel {
             }
         });
         add(btnTransferirMesa);
-        btnTransferirMesa.setBounds(210, 530, 160, 50);
+        btnTransferirMesa.setBounds(210, 540, 160, 50);
 
         btnAgregarItem.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnAgregarItem.setText("(+) Agregar Item");
@@ -177,27 +191,49 @@ public class PanelMesaAbierta extends javax.swing.JPanel {
             }
         });
         add(btnAgregarCliente);
-        btnAgregarCliente.setBounds(120, 470, 160, 40);
+        btnAgregarCliente.setBounds(120, 490, 160, 40);
 
         lbl_servicioTotalLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         lbl_servicioTotalLabel.setText("Total:");
         add(lbl_servicioTotalLabel);
         lbl_servicioTotalLabel.setBounds(180, 300, 70, 30);
 
-        lbl_clienteNombreValue.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        lbl_clienteNombreValue.setText("No hay cliente agregado");
-        add(lbl_clienteNombreValue);
-        lbl_clienteNombreValue.setBounds(100, 420, 280, 20);
+        lbl_clienteNombre_Value.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lbl_clienteNombre_Value.setText("No hay cliente agregado");
+        add(lbl_clienteNombre_Value);
+        lbl_clienteNombre_Value.setBounds(100, 440, 280, 20);
 
-        lbl_clienteNombreLabel2.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        lbl_clienteNombreLabel2.setText("Cliente:");
-        add(lbl_clienteNombreLabel2);
-        lbl_clienteNombreLabel2.setBounds(20, 420, 80, 20);
+        lbl_clienteTotalSinBeneficio_Label.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lbl_clienteTotalSinBeneficio_Label.setText("Total sin beneficio:");
+        add(lbl_clienteTotalSinBeneficio_Label);
+        lbl_clienteTotalSinBeneficio_Label.setBounds(20, 420, 190, 20);
 
-        lbl_clienteBeneficioValue.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        lbl_clienteBeneficioValue.setText("Sin beneficio");
-        add(lbl_clienteBeneficioValue);
-        lbl_clienteBeneficioValue.setBounds(100, 440, 280, 20);
+        lbl_clienteBeneficioDescripcion_Value.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lbl_clienteBeneficioDescripcion_Value.setText("Sin beneficio");
+        add(lbl_clienteBeneficioDescripcion_Value);
+        lbl_clienteBeneficioDescripcion_Value.setBounds(100, 460, 280, 20);
+
+        lbl_clienteNombre_Label.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lbl_clienteNombre_Label.setText("Cliente:");
+        add(lbl_clienteNombre_Label);
+        lbl_clienteNombre_Label.setBounds(20, 440, 80, 20);
+
+        lbl_clienteTotalSinBeneficio_Value.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lbl_clienteTotalSinBeneficio_Value.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        lbl_clienteTotalSinBeneficio_Value.setText("$1000.00");
+        add(lbl_clienteTotalSinBeneficio_Value);
+        lbl_clienteTotalSinBeneficio_Value.setBounds(210, 420, 80, 20);
+
+        lbl_clienteDescuentoPorBeneficio_Label.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lbl_clienteDescuentoPorBeneficio_Label.setText("Descuento por beneficio:");
+        add(lbl_clienteDescuentoPorBeneficio_Label);
+        lbl_clienteDescuentoPorBeneficio_Label.setBounds(20, 400, 190, 20);
+
+        lbl_clienteDescuentoPorBeneficio_Value.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lbl_clienteDescuentoPorBeneficio_Value.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        lbl_clienteDescuentoPorBeneficio_Value.setText("$1000.00");
+        add(lbl_clienteDescuentoPorBeneficio_Value);
+        lbl_clienteDescuentoPorBeneficio_Value.setBounds(210, 400, 80, 20);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarItemActionPerformed
@@ -225,10 +261,14 @@ public class PanelMesaAbierta extends javax.swing.JPanel {
     private javax.swing.JButton btnAgregarItem;
     private javax.swing.JButton btnCerrarMesa;
     private javax.swing.JButton btnTransferirMesa;
-    private javax.swing.JLabel lbl_clienteBeneficioLabel;
-    private javax.swing.JLabel lbl_clienteBeneficioValue;
-    private javax.swing.JLabel lbl_clienteNombreLabel2;
-    private javax.swing.JLabel lbl_clienteNombreValue;
+    private javax.swing.JLabel lbl_clienteBeneficioDescripcion_Label;
+    private javax.swing.JLabel lbl_clienteBeneficioDescripcion_Value;
+    private javax.swing.JLabel lbl_clienteDescuentoPorBeneficio_Label;
+    private javax.swing.JLabel lbl_clienteDescuentoPorBeneficio_Value;
+    private javax.swing.JLabel lbl_clienteNombre_Label;
+    private javax.swing.JLabel lbl_clienteNombre_Value;
+    private javax.swing.JLabel lbl_clienteTotalSinBeneficio_Label;
+    private javax.swing.JLabel lbl_clienteTotalSinBeneficio_Value;
     private javax.swing.JLabel lbl_mesaSeleccionadaLabel;
     private javax.swing.JLabel lbl_mesaSeleccionadaValor;
     private javax.swing.JLabel lbl_servicioTotalLabel;

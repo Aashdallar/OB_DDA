@@ -6,6 +6,8 @@
 package modelo;
 
 import java.util.ArrayList;
+import modelo.Mapeador.MapeadorServicio;
+import persistencia.Persistencia;
 
 /**
  *
@@ -16,6 +18,8 @@ public class Servicio {
     private int oid;
     private ArrayList<Item> items;
     private Mesa mesa;
+    private double montoTotal;
+    private double montoDeDescuento;
     
     // <editor-fold defaultstate="collapsed" desc="Agregar-Remover Items">
     public void setOid(int oid) {
@@ -50,11 +54,23 @@ public class Servicio {
     }
     // </editor-fold>
     
-    public double montoTotal(){
-        double total = 0;        
+    public void calcularMontos(){
+        montoTotal = 0;        
         for(Item i:items){
-            total += i.getMonto();
+            montoTotal += i.getMonto();
         }
+        montoDeDescuento = mesa.getDescuentoDeCliente(items, montoTotal);
+    }
+    public double getMontoTotal() {
+        return montoTotal;
+    }
+    public double getMontoDeDescuento() {
+        return montoDeDescuento;
+    }
+    public double getMontoConDescuento() {
+        double total = montoTotal - montoDeDescuento;
+        if(total < 0)
+            return 0;
         return total;
     }
     
@@ -74,6 +90,11 @@ public class Servicio {
 
     public void actualizarMesa() {
         mesa.avisarMozo();
+    }
+
+    void guardarServicio() {
+        MapeadorServicio ms = new MapeadorServicio(this);
+        Persistencia.getInstancia().guardar(ms);
     }
     
 }

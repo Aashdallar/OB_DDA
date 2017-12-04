@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
-public class DialogAgregarCliente extends javax.swing.JDialog {
+public class DialogAgregarClienteAMesa extends javax.swing.JDialog {
     
     private PanelPrincipalMozo panelPrincipal;
 
-    public DialogAgregarCliente(java.awt.Frame parent, boolean modal, PanelPrincipalMozo pPrincipal) {
+    public DialogAgregarClienteAMesa(java.awt.Frame parent, boolean modal, PanelPrincipalMozo pPrincipal) {
         super(parent, modal);
         initComponents();
         panelPrincipal = pPrincipal;
@@ -26,11 +26,8 @@ public class DialogAgregarCliente extends javax.swing.JDialog {
                 errorMessage("Porfavor ingrese un id numérico de cliente");
             } else {
                 int id = Integer.parseInt(txtClienteID.getText());
-                if(!panelPrincipal.agregarCliente(id)){
-                    errorMessage("Cliente no válido");
-                } else {
-                    dispose();
-                }
+                dispose();
+                panelPrincipal.agregarCliente(id);
             }
         } catch(NumberFormatException ex){
             errorMessage("Porfavor ingrese un id numérico de cliente");
@@ -39,8 +36,6 @@ public class DialogAgregarCliente extends javax.swing.JDialog {
     private void errorMessage(String msg){
         JOptionPane.showMessageDialog(this, msg);
     }
-    
-    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

@@ -78,8 +78,9 @@ public class Mesa {
     public void cerrar() throws ModeloException {
         if(estaAbierta()){
             if(!servicio.hayPendientes()){
-                this.abierta = false;
+                this.servicio.guardarServicio();
                 this.servicio = new Servicio();
+                this.abierta = false;
             } else {
                 throw new ModeloException("Hay items sin finalizar, por lo que no se puede cerrar la mesa");
             }
@@ -120,8 +121,29 @@ public class Mesa {
         mozo.avisar(Mozo.eventos.pedido);
     }
 
-    public boolean agregarCliente(int idCliente) {
-        cliente = new Cliente(idCliente);
-        return cliente != null;
+    public void agregarCliente(int idCliente) throws ModeloException {
+        cliente = Cliente.getClienteFromDB(idCliente);
+        if (cliente == null) throw new ModeloException("Cliente no válido");
+    }
+
+    public double getDescuentoDeCliente(ArrayList<Item> items, double montoTotal) {
+        if(cliente == null){
+            return 0;
+        }
+        return cliente.getDescuentoDeCliente(items);
+    }
+
+    public String getClienteNombre() {
+        if(cliente == null){
+            return "No hay cliente agregado";
+        }
+        return cliente.getNombre();
+    }
+
+    public String getClienteBeneficioTexto() {
+        if (cliente == null){
+            return "Sin Beneficio";
+        }
+        return cliente.getBeneficioTexto();
     }
 }

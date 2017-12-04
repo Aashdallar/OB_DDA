@@ -25,7 +25,7 @@ public class Persistencia {
 
     private Persistencia() {
         base = BaseDatos.getInstancia();
-        base.conectar("root", "root", "jdbc:mysql://localhost/dam4a");
+        base.conectar("root", "root", "jdbc:mysql://localhost/dda_ALGO");
     }
     private int proximoOid(){
         int oid=-1;
@@ -54,7 +54,6 @@ public class Persistencia {
         if (!base.transaccion(sqls)){
             m.setOid(0);
         }
-         
     }
 
     private boolean modificar(Mapeador m) {
@@ -81,14 +80,11 @@ public class Persistencia {
         if(filtro!=null)sql += " WHERE " + filtro;
         ResultSet rs = base.consultar(sql);
         try {
-                        
             while(rs.next()){
-                
                 map.crearNuevo();
                 map.setOid(rs.getInt("oid")); //el campo debe llamarse asi
                 map.cargarRegistro(rs);
                 objetos.add(map.getObjeto());
-
             }
             return objetos;
         } catch (SQLException ex) {

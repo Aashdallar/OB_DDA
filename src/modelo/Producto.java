@@ -5,12 +5,15 @@
  */
 package modelo;
 
+import modelo.Mapeador.MapeadorProducto;
+import persistencia.Persistencia;
+
 /**
  *
  * @author SG0219779
  */
 public class Producto {
-    
+
     private int oid;
     private String codigo;
     private String nombre;
@@ -80,12 +83,21 @@ public class Producto {
     
     public void elaborarProducto(int cantidad){
         this.stock -= cantidad;
+        MapeadorProducto mp = new MapeadorProducto(this);
+        Persistencia.getInstancia().guardar(mp);
     }
 
     @Override
     public String toString() {
         return nombre;
-    }    
-   
-   
+    }
+    
+    static void loadProductosFromBD() {
+        Persistencia p = Persistencia.getInstancia();
+        MapeadorProducto mp = new MapeadorProducto();
+        //No hago nada con la lista,
+        //porque ya al cargarlos se encarga de agregarlos a las unidades procesadoras
+        p.obtenerTodos(mp);
+    }
+    
 }
