@@ -8,6 +8,7 @@ package modelo.Mapeador;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import modelo.Cliente;
 import modelo.Item;
 import modelo.Servicio;
 import persistencia.Mapeador;
@@ -46,17 +47,23 @@ public class MapeadorServicio implements Mapeador {
     public ArrayList<String> getSqlInsert() {
         ArrayList<String> sqls = new ArrayList();
         int oid = getOid();
-        sqls.add(
-         "INSERT INTO servicios VALUES (" + oid + "," + servicio.getMesa().getNro() + ")"
-        );
-        
-        for(int x = 1; x <= servicio.getItems().size(); x++){
-            Item i = servicio.getItems().get(x);
-            sqls.add(
-                "INSERT INTO items VALUES (" + x + "," + oid + "," + i.getCantidad() + ",'" + i.getDescripcion() + "'," + i.getPrecioUnitario()
-                    + ",'"+ i.getPedido().getGestor().getNombreUsuario() + "','" + i.getProducto().getCodigo() + "')"
-            );
+        Cliente c = servicio.getMesa().getCliente();
+        String sqlIns = "INSERT INTO servicios VALUES (" + oid + ", " + servicio.getMesa().getNro() + ", " + servicio.getMontoTotalAAbonar()+ ", "
+            + servicio.getMontoDescontado();
+        if(c != null){
+            sqlIns += ", " + c.getId();
         }
+        sqlIns += ")";
+        
+        sqls.add(sqlIns);
+        
+        String sqlInsItems = "INSERT INTO items(iditem, servicioOid, cantidad, descripcion, precioUnitario, usarioGestor, productoCodigo) VALUES ";
+        for(int x = 1; x <= servicio.getItems().size(); x++){
+            Item i = servicio.getItems().get(x-1);
+            sqlInsItems += "(" + x + ", " + oid + ", " + i.getCantidad() + ", '" + i.getDescripcion() + "', " + i.getPrecioUnitario()
+                + ", '"+ i.getPedido().getGestor().getNombreUsuario() + "', '" + i.getProducto().getCodigo() + "'), ";
+        }
+        sqls.add(sqlInsItems.substring(0, sqlInsItems.length()-2));
         return sqls;
     }
 

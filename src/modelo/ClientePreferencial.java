@@ -17,19 +17,19 @@ public class ClientePreferencial implements TipoCliente {
     public String getBeneficioTexto() {
         return "Agua gratis y -5% (si total >$2000)";
     }
+    
+    //Codigo del agua mineral es b002
+    @Override
+    public String getCodigoProductoDescontado() {
+        return "b002";
+    }
 
     @Override
-    public double getBeneficio(ArrayList<Item> items) {
-        double total = 0;
-        //Codigo del agua mineral es b002
-        for(Item i:items){
-            if(!i.getProducto().getCodigo().equals("b002")){
-                total += i.getMonto();
-            }
-        }
+    public double getOtrosDescuentos(double total) {
         if(total >= 2000){
-            total -= total * 0.05;
+            return total * 0.05;
         }
-        return total;
+        return 0;
     }
+    
 }

@@ -18,6 +18,7 @@ public class DialogAgregarClienteAMesa extends javax.swing.JDialog {
         initComponents();
         panelPrincipal = pPrincipal;
         setTitle("Agregar un cliente registrado");
+        setVisible(true);
     }
     
     private void agregarCliente() {

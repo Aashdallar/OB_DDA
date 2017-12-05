@@ -18,15 +18,15 @@ public class ClienteComun implements TipoCliente {
         return "Café gratis";
     }
 
+    //Codigo de café es b004
     @Override
-    public double getBeneficio(ArrayList<Item> items) {
-        double total = 0;
-        //Codigo de café es b004
-        for(Item i:items){
-            if(!i.getProducto().getCodigo().equals("b004")){
-                total += i.getMonto();
-            }
-        }
-        return total;
-    }    
+    public String getCodigoProductoDescontado() {
+        return "b004";
+    }
+
+    @Override
+    public double getOtrosDescuentos(double total) {
+        return 0;
+    }
+    
 }

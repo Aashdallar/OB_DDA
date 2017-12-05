@@ -17,10 +17,16 @@ public class ClienteDeLaCasa implements TipoCliente {
     public String getBeneficioTexto() {
         return "$500 de consumo gratis";
     }
+    
+    @Override
+    public String getCodigoProductoDescontado() {
+        return null;
+    }
 
     @Override
-    public double getBeneficio(ArrayList<Item> items) {
-        //Dado que dice que tienen $500 de consumo gratis, se lo pongo como valor fijo a favor
+    public double getOtrosDescuentos(double total) {
         return 500;
     }
+    
+    
 }

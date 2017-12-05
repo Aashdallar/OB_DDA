@@ -126,13 +126,6 @@ public class Mesa {
         if (cliente == null) throw new ModeloException("Cliente no válido");
     }
 
-    public double getDescuentoDeCliente(ArrayList<Item> items, double montoTotal) {
-        if(cliente == null){
-            return 0;
-        }
-        return cliente.getDescuentoDeCliente(items);
-    }
-
     public String getClienteNombre() {
         if(cliente == null){
             return "No hay cliente agregado";
@@ -146,4 +139,19 @@ public class Mesa {
         }
         return cliente.getBeneficioTexto();
     }
+
+    public String getCodigoProductoDescontado() {
+        if(cliente != null){
+            return cliente.getCodigoProductoDescontado();
+        }
+        return null;
+    }
+
+    double getOtrosDescuentos(double total) {
+        if(cliente != null){
+            return cliente.getOtrosDescuentos(total);
+        }
+        return 0;
+    }
+
 }

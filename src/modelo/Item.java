@@ -37,9 +37,13 @@ public class Item {
 
     // <editor-fold defaultstate="collapsed" desc="Gets y Sets">
     
-    public Producto getProducto(){
-        return producto;
+    public Item(){
+        descripcion = "";
     }    
+
+    public Producto getProducto() {
+        return producto;
+    }
     public void setProducto(Producto producto) {
         this.producto = producto;
         this.precioUnitario = this.producto.getPrecioUnitario();
@@ -83,6 +87,13 @@ public class Item {
     // </editor-fold>
     
     public double getMonto(){
+        String codigoProductoDescontado = servicio.getCodigoProductoDescontado();
+        if(producto.getCodigo().equals(codigoProductoDescontado)){
+            return 0;
+        }
+        return precioUnitario*cantidad;
+    }
+    public double getMontoSinAplicarDescuento(){
         return precioUnitario*cantidad;
     }
        

@@ -70,10 +70,9 @@ public class PanelMesaAbierta extends javax.swing.JPanel {
     }
     
     private void cargarEtiquetas(Mesa mesa) {
-        mesa.getServicio().calcularMontos();
-        lbl_servicioTotalValue.setText("$ " + mesa.getServicio().getMontoConDescuento());
-        lbl_clienteDescuentoPorBeneficio_Value.setText("$ " + mesa.getServicio().getMontoDeDescuento());
-        lbl_clienteTotalSinBeneficio_Value.setText("$ " + mesa.getServicio().getMontoTotal());
+        lbl_servicioTotalValue.setText("$ " + mesa.getServicio().getMontoTotalAAbonar());
+        lbl_clienteDescuentoPorBeneficio_Value.setText("$ " + mesa.getServicio().getMontoDescontado());
+        lbl_clienteTotalSinBeneficio_Value.setText("$ " + mesa.getServicio().getMontoTotalSinDescuento());
         
         lbl_clienteNombre_Value.setText(mesa.getClienteNombre());
         lbl_clienteBeneficioDescripcion_Value.setText(mesa.getClienteBeneficioTexto());
@@ -194,9 +193,9 @@ public class PanelMesaAbierta extends javax.swing.JPanel {
         btnAgregarCliente.setBounds(120, 490, 160, 40);
 
         lbl_servicioTotalLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        lbl_servicioTotalLabel.setText("Total:");
+        lbl_servicioTotalLabel.setText("Total a abonar:");
         add(lbl_servicioTotalLabel);
-        lbl_servicioTotalLabel.setBounds(180, 300, 70, 30);
+        lbl_servicioTotalLabel.setBounds(90, 300, 170, 30);
 
         lbl_clienteNombre_Value.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         lbl_clienteNombre_Value.setText("No hay cliente agregado");

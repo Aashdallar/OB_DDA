@@ -52,7 +52,7 @@ public class MapeadorProducto implements Mapeador {
     @Override
     public ArrayList<String> getSqlUpdate() {
         ArrayList<String> sqls = new ArrayList();
-        sqls.add ("UPDATE productos SET stock=" + producto.getStock() + "WHERE oid=" + producto.getOid());
+        sqls.add ("UPDATE productos SET stock=" + producto.getStock() + " WHERE oid=" + producto.getOid());
         return sqls;
     }
 

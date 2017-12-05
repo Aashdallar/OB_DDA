@@ -5,6 +5,8 @@
  */
 package utils;
 
+import modelo.Sistema;
+
 /**
  *
  * @author SG0219779
@@ -15,6 +17,7 @@ public class Inicio {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        Sistema.getInstancia().cargarDatos();
         new AppLauncher(null, false).setVisible(true);
     }
 

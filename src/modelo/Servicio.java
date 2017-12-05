@@ -18,8 +18,6 @@ public class Servicio {
     private int oid;
     private ArrayList<Item> items;
     private Mesa mesa;
-    private double montoTotal;
-    private double montoDeDescuento;
     
     // <editor-fold defaultstate="collapsed" desc="Agregar-Remover Items">
     public void setOid(int oid) {
@@ -54,24 +52,32 @@ public class Servicio {
     }
     // </editor-fold>
     
-    public void calcularMontos(){
-        montoTotal = 0;        
+    public double getMontoTotalAAbonar(){
+        double total = 0;
+        
         for(Item i:items){
-            montoTotal += i.getMonto();
+            total += i.getMonto();
         }
-        montoDeDescuento = mesa.getDescuentoDeCliente(items, montoTotal);
-    }
-    public double getMontoTotal() {
-        return montoTotal;
-    }
-    public double getMontoDeDescuento() {
-        return montoDeDescuento;
-    }
-    public double getMontoConDescuento() {
-        double total = montoTotal - montoDeDescuento;
-        if(total < 0)
+        double otrosDescuentos = mesa.getOtrosDescuentos(total);
+        
+        if(total < otrosDescuentos){
             return 0;
+        } else {
+            return total - otrosDescuentos;
+        }
+        
+    }
+    
+    public double getMontoTotalSinDescuento() {
+        double total = 0;
+        for(Item i: items){
+            total += i.getMontoSinAplicarDescuento();
+        }
         return total;
+    }
+    //Hay que calcular los montos por separado cada vez, porque no se sabe como pueden llegar a ser pedidos
+    public double getMontoDescontado() {
+        return getMontoTotalSinDescuento() - getMontoTotalAAbonar();
     }
     
     public boolean hayPendientes() {
@@ -92,9 +98,15 @@ public class Servicio {
         mesa.avisarMozo();
     }
 
-    void guardarServicio() {
-        MapeadorServicio ms = new MapeadorServicio(this);
-        Persistencia.getInstancia().guardar(ms);
+    public void guardarServicio() {
+        if(items != null && items.size() >0){
+            MapeadorServicio ms = new MapeadorServicio(this);
+            Persistencia.getInstancia().guardar(ms);
+        }
+    }
+
+    public String getCodigoProductoDescontado() {
+        return mesa.getCodigoProductoDescontado();
     }
     
 }

@@ -54,6 +54,10 @@ public class Cliente {
         this.tipo = tipo;
     }
     public void setTipo(String str){
+        if(str == null){
+            this.tipo = null;
+            return;
+        }
         switch(str){
             case "COM":
                 this.tipo = new ClienteComun();
@@ -88,10 +92,19 @@ public class Cliente {
         return tipo.getBeneficioTexto();
     }
 
-    public double getDescuentoDeCliente(ArrayList<Item> items) {
-        if(tipo == null){
-            return 0;
+    String getCodigoProductoDescontado() {
+        if(tipo!= null){
+            return tipo.getCodigoProductoDescontado();
         }
-        return tipo.getBeneficio(items);
+        return null;
     }
+
+    double getOtrosDescuentos(double total) {
+        if(tipo != null){
+            return tipo.getOtrosDescuentos(total);
+        }
+        return 0;
+    }
+    
+    
 }

@@ -25,7 +25,7 @@ public class Persistencia {
 
     private Persistencia() {
         base = BaseDatos.getInstancia();
-        base.conectar("root", "root", "jdbc:mysql://localhost/dda_ALGO");
+        base.conectar("root", "root", "jdbc:mysql://localhost/ob_dda");
     }
     private int proximoOid(){
         int oid=-1;

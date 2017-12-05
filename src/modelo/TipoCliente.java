@@ -15,6 +15,8 @@ public interface TipoCliente {
 
     public String getBeneficioTexto();
 
-    public double getBeneficio(ArrayList<Item> items);
-    
+    public String getCodigoProductoDescontado();
+
+    public double getOtrosDescuentos(double total);
+
 }
