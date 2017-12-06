@@ -68,7 +68,9 @@ public class Mozo extends Usuario {
         transferenciaSolicitadaFrom,
         transferenciaRechazada,
         transferenciaAceptada,
-        pedido
+        transferenciaActualizada,
+        transferenciaTiempoTerminado,
+        pedido,
     }
     // </editor-fold>
 

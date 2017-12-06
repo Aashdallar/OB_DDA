@@ -11,5 +11,7 @@ public interface MainVistaMozo {
     public void mostrarAlerta(String mensaje);
     public void mostrarTransferirMesa(ArrayList<Mozo> mozosLogueados, Mesa mesa);
     public void mostrarTransferenciaSolicitud(Transferencia transferencia);
+    public void mostrarTransferenciaActualizada();
+    public void terminarTransferenciaPorTiempoTerminado();
     
 }

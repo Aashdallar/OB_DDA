@@ -16,10 +16,12 @@ public class DialogTransferenciaSolicitar extends javax.swing.JDialog {
 
     private PanelPrincipalMozo panelPrincipal;
     private Transferencia transferencia;
+    
     public DialogTransferenciaSolicitar(java.awt.Frame parent, boolean modal, Transferencia transferencia, PanelPrincipalMozo pPrincipal) {
         super(parent, modal);
         initComponents();
         panelPrincipal = pPrincipal;
+        panelPrincipal.setDialogoTransferencia(this);
         this.transferencia = transferencia;
         cargarValores();
         setTitle("Pedido de transferencia");
@@ -27,9 +29,14 @@ public class DialogTransferenciaSolicitar extends javax.swing.JDialog {
         setVisible(true);
     }
     
+    public void mostrarTiempo(){
+        lblValueTiempoRestante.setText(transferencia.getTiempoRestante()+"");
+    }
+    
     private void cargarValores(){
         lblValueMozo.setText(transferencia.getMesa().getMozo().getNombreCompleto());
         lblValueMesa.setText("" + transferencia.getMesa().getNro());
+        mostrarTiempo();
         if(transferencia.getMesa().estaAbierta())
             lblValueEstado.setText("Abierta");
         else
@@ -59,6 +66,8 @@ public class DialogTransferenciaSolicitar extends javax.swing.JDialog {
         lblTextoEstado = new javax.swing.JLabel();
         btnRechazar = new javax.swing.JButton();
         btnAceptar = new javax.swing.JButton();
+        lblTiempoRestante = new javax.swing.JLabel();
+        lblValueTiempoRestante = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -87,7 +96,7 @@ public class DialogTransferenciaSolicitar extends javax.swing.JDialog {
         lblValueEstado.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblValueEstado.setText("XXXX");
         getContentPane().add(lblValueEstado);
-        lblValueEstado.setBounds(240, 120, 110, 30);
+        lblValueEstado.setBounds(260, 120, 110, 30);
 
         lblTextoMozo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblTextoMozo.setText("Mozo:");
@@ -102,7 +111,7 @@ public class DialogTransferenciaSolicitar extends javax.swing.JDialog {
         lblTextoEstado.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblTextoEstado.setText("Estado:");
         getContentPane().add(lblTextoEstado);
-        lblTextoEstado.setBounds(170, 120, 70, 30);
+        lblTextoEstado.setBounds(190, 120, 70, 30);
 
         btnRechazar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnRechazar.setText("Rechazar");
@@ -112,7 +121,7 @@ public class DialogTransferenciaSolicitar extends javax.swing.JDialog {
             }
         });
         getContentPane().add(btnRechazar);
-        btnRechazar.setBounds(230, 190, 130, 40);
+        btnRechazar.setBounds(230, 200, 130, 40);
 
         btnAceptar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnAceptar.setText("Aceptar");
@@ -122,7 +131,17 @@ public class DialogTransferenciaSolicitar extends javax.swing.JDialog {
             }
         });
         getContentPane().add(btnAceptar);
-        btnAceptar.setBounds(40, 190, 130, 40);
+        btnAceptar.setBounds(40, 200, 130, 40);
+
+        lblTiempoRestante.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblTiempoRestante.setText("Tiempo Restante:");
+        getContentPane().add(lblTiempoRestante);
+        lblTiempoRestante.setBounds(40, 160, 150, 30);
+
+        lblValueTiempoRestante.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblValueTiempoRestante.setText("XX");
+        getContentPane().add(lblValueTiempoRestante);
+        lblValueTiempoRestante.setBounds(190, 160, 110, 30);
 
         setBounds(0, 0, 416, 303);
     }// </editor-fold>//GEN-END:initComponents
@@ -149,8 +168,10 @@ public class DialogTransferenciaSolicitar extends javax.swing.JDialog {
     private javax.swing.JLabel lblTextoEstado;
     private javax.swing.JLabel lblTextoMesa;
     private javax.swing.JLabel lblTextoMozo;
+    private javax.swing.JLabel lblTiempoRestante;
     private javax.swing.JLabel lblValueEstado;
     private javax.swing.JLabel lblValueMesa;
     private javax.swing.JLabel lblValueMozo;
+    private javax.swing.JLabel lblValueTiempoRestante;
     // End of variables declaration//GEN-END:variables
 }

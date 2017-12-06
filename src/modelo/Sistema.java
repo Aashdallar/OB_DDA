@@ -20,7 +20,7 @@ public class Sistema {
     public static Sistema getInstancia() {
         return instancia;
     }
-    private Sistema() {  }
+    private Sistema() { }
     
     public Mozo loginMozo(String usuario, String password) throws ModeloException {
         return sisM.ingresar(usuario, password);

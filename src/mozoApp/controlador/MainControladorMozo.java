@@ -99,11 +99,17 @@ public class MainControladorMozo implements Observer {
             mesaSeleccionada = null;
             vista.mostrarMesas(mesaSeleccionada, mozo);
             vista.mostrarAlerta("La solicitud de transferecia fue aceptada.");
+        } else if(evento.equals(Mozo.eventos.transferenciaActualizada)){
+            vista.mostrarTransferenciaActualizada();
+        } else if(evento.equals(Mozo.eventos.transferenciaTiempoTerminado)){
+            vista.terminarTransferenciaPorTiempoTerminado();
         } else if(evento.equals(Mozo.eventos.pedido)){
             vista.mostrarMesas(mesaSeleccionada, mozo);
         }
     }
 
+    
+    
     public void transferenciaAceptar() {
         mozo.aceptarTransferencia();
         vista.mostrarMesas(mesaSeleccionada, mozo);

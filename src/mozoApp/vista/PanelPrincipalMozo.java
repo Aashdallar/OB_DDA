@@ -18,6 +18,13 @@ import mozoApp.controlador.MainVistaMozo;
 public class PanelPrincipalMozo extends JPanel implements ActionListener, MainVistaMozo {
     
     private MainControladorMozo controlador;
+    private DialogTransferenciaSolicitar dialogoTransferencia;
+    
+    public void setDialogoTransferencia(DialogTransferenciaSolicitar dialogo){
+        this.dialogoTransferencia = dialogo;
+    }
+    
+    
     
     public PanelPrincipalMozo(Mozo mozo) {
         setLayout(new GridLayout(1,2));
@@ -63,7 +70,7 @@ public class PanelPrincipalMozo extends JPanel implements ActionListener, MainVi
 
     @Override
     public void mostrarTransferenciaSolicitud(Transferencia transferencia) {
-        new DialogTransferenciaSolicitar(null, true, transferencia, this);
+        new DialogTransferenciaSolicitar(null, false, transferencia, this);
     }
     
     private void cargarPanel(PanelListaMesas pMesas, JPanel pEstatico, Mozo mozo){
@@ -114,6 +121,20 @@ public class PanelPrincipalMozo extends JPanel implements ActionListener, MainVi
 
     void agregarCliente(int idCliente) {
         controlador.agregarClienteALaMesa(idCliente);
+    }
+
+    @Override
+    public void mostrarTransferenciaActualizada() {
+        if(dialogoTransferencia!=null){
+            dialogoTransferencia.mostrarTiempo();
+        }
+    }
+    
+    @Override
+    public void terminarTransferenciaPorTiempoTerminado() {
+        if(dialogoTransferencia!=null){
+            dialogoTransferencia.dispose();
+        }
     }
 
 }
