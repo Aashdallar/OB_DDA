@@ -5,6 +5,8 @@
  */
 package utils;
 
+import modelo.Sistema;
+
 /**
  *
  * @author SG0208533

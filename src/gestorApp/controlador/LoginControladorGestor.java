@@ -1,15 +1,13 @@
 package gestorApp.controlador;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import modelo.Gestor;
 import modelo.ModeloException;
 import modelo.Sistema;
 import modelo.UnidadProcesadora;
 
-/**
- *
- * @author SG0208533
- */
 public class LoginControladorGestor {
     
     private LoginVistaGestor vista;
@@ -33,5 +31,13 @@ public class LoginControladorGestor {
     public void finalizarLogin(UnidadProcesadora unidad){
         gestor.setUnidad(unidad);
         vista.ingresar(gestor);
+    }
+
+    public void desloguearGestor() {
+        try {
+            sistema.desloguearGestor(gestor);
+        } catch (ModeloException ex) {
+            
+        }
     }
 }

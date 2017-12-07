@@ -132,4 +132,8 @@ public class LoginDialog extends javax.swing.JDialog implements LoginVistaGestor
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 
+    void desloguear() {
+        controlador.desloguearGestor();
+    }
+
 }

@@ -60,7 +60,11 @@ public class PanelPrincipalMozo extends JPanel implements ActionListener, MainVi
     
     @Override
     public void mostrarAlerta(String mensaje) {
-        JOptionPane.showMessageDialog(this, mensaje);
+        JOptionPane pane = new JOptionPane(mensaje);
+        JDialog d = pane.createDialog(this, "Mensaje");
+        d.setModal(false);
+        d.setVisible(true);
+        //JOptionPane.showMessageDialog(this, mensaje);
     }
     
     @Override
