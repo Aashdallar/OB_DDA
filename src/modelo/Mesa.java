@@ -105,7 +105,7 @@ public class Mesa {
 
     @Override
     public String toString() {
-        return "Mesa:" + nro + ", " + mozo;
+        return "Mesa " + nro;
     }
 
     public void avisarMozo() {

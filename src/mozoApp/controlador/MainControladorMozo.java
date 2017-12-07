@@ -32,6 +32,12 @@ public class MainControladorMozo implements Observer {
         vista.mostrarMesas(null, this.mozo);
     }
     
+    public void seleccionarMesa(int indexMesa){
+        if(indexMesa < mozo.getMesas().size()){
+            Mesa mesa = mozo.getMesas().get(indexMesa);
+            seleccionarMesa(mesa);
+        }
+    }
     public void seleccionarMesa(Mesa mesa){
         mesaSeleccionada = mesa;
         vista.mostrarMesas(mesa, mozo);
@@ -65,6 +71,14 @@ public class MainControladorMozo implements Observer {
     public ArrayList<Producto> getProductosConStock() {
         return sistema.getProductosConStock();
     }
+    
+    public void agregarItemALaMesa(int indexProd,int cantidad, String descripcion){
+        Item item = new Item();
+        item.setProducto(getProductosConStock().get(indexProd));
+        item.setCantidad(cantidad);
+        item.setDescripcion(descripcion);
+        agregarItemALaMesa(item);
+    }
 
     public void agregarItemALaMesa(Item item) {
         try {
@@ -75,10 +89,24 @@ public class MainControladorMozo implements Observer {
         }
     }
     
+    private ArrayList<Mozo> otrosMozosLogueados(){
+               ArrayList<Mozo> mozosLogueados = new ArrayList();
+        for(Mozo m:sistema.getMozosLogueados()){
+            if(!m.equals(mozo)){
+                mozosLogueados.add(m);
+            }
+        }
+        return mozosLogueados;
+    }
+    
     public void iniciarTransferirMesa(){
-        vista.mostrarTransferirMesa(sistema.getMozosLogueados(), mesaSeleccionada);
+        vista.mostrarTransferirMesa(otrosMozosLogueados(), mesaSeleccionada);
     }
 
+    public void transferirMesa(int indexMozo){
+        transferirMesa(otrosMozosLogueados().get(indexMozo));
+    }
+    
     public void transferirMesa(Mozo mozoDestino) {
         Transferencia transferencia = new Transferencia();
         transferencia.setMesa(mesaSeleccionada);

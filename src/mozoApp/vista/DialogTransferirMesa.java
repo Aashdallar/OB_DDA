@@ -30,13 +30,7 @@ public class DialogTransferirMesa extends javax.swing.JDialog {
     }
     
     private void cargarMozosLista(Mesa mesa, ArrayList<Mozo> mozosLogueados){
-        ArrayList<Mozo> lista = new ArrayList();
-        for(Mozo m : mozosLogueados){
-            if(!mesa.getMozo().equals(m)){
-                lista.add(m);
-            }
-        }
-        lstMozos.setListData(lista.toArray());
+        lstMozos.setListData(mozosLogueados.toArray());
     }
     
     
