@@ -48,13 +48,15 @@ public class MapeadorServicio implements Mapeador {
         ArrayList<String> sqls = new ArrayList();
         int oid = getOid();
         Cliente c = servicio.getMesa().getCliente();
-        String sqlIns = "INSERT INTO servicios VALUES (" + oid + ", " + servicio.getMesa().getNro() + ", " + servicio.getMontoTotalAAbonar()+ ", "
-            + servicio.getMontoDescontado();
+        String cElemento = "";
+        String cValor = "";
         if(c != null){
-            sqlIns += ", " + c.getId();
+            cElemento = ", cliente_id";
+            cValor += ", " + c.getId();
         }
-        sqlIns += ")";
-        
+        String sqlIns = "INSERT INTO servicios(oid, nroMesa, montoAbonado, montoDeDescuento" + cElemento + ")" + 
+                " VALUES (" + oid + ", " + servicio.getMesa().getNro() + ", " + servicio.getMontoTotalAAbonar()+ ", " +
+                servicio.getMontoDescontado() + cValor + ")";
         sqls.add(sqlIns);
         
         String sqlInsItems = "INSERT INTO items(iditem, servicioOid, cantidad, descripcion, precioUnitario, usarioGestor, productoCodigo) VALUES ";
